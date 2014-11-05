@@ -69,7 +69,7 @@ var
 
 implementation
 
-uses auxiliary, editing, timesheet_main;
+uses auxiliary, editing, timesheet_main, dialogs;
 
 {$R *.lfm}
 
@@ -99,15 +99,33 @@ begin
 end;
 
 procedure Tdm_main.act_deleteExecute(Sender: TObject);
+var
+  confirm_msg: String;
 begin
-  sql_delete.ParamByName('id').Value := sql_timesheet.FieldByName('id').Value;
-  sql_timesheet.Close;
-  sql_delete.ExecSQL;
-  if sql_delete.RowsAffected = 1 then
-    sql_tran.Commit
-  else
-    sql_tran.Rollback;
-  sql_timesheet.Open;
+  confirm_msg := 'Are you sure you want to delete this record?' + #13#10 +
+    'Date: ' + sql_timesheet.FieldByName('date').AsString + #13#10 +
+    'Task: ' + sql_timesheet.FieldByName('task').AsString + #13#10 +
+    'Elapsed: ' +
+    auxiliary.minutes_to_string(sql_timesheet.FieldByName('time').Value);
+
+  if MessageDlg(
+      'Confirm',
+      confirm_msg,
+      mtConfirmation,
+      [mbYes, mbCancel],
+      0,
+      mbCancel
+    ) = mrYes then
+  begin
+    sql_delete.ParamByName('id').Value := sql_timesheet.FieldByName('id').Value;
+    sql_timesheet.Close;
+    sql_delete.ExecSQL;
+    if sql_delete.RowsAffected = 1 then
+      sql_tran.Commit
+    else
+      sql_tran.Rollback;
+    sql_timesheet.Open;
+  end;
 end;
 
 procedure Tdm_main.sql_categoriesnameGetText(Sender: TField; var aText: string;

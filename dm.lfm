@@ -18,7 +18,6 @@ object dm_main: Tdm_main
     top = 8
   end
   object sql_timesheet: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'id'
@@ -86,7 +85,6 @@ object dm_main: Tdm_main
         Precision = -1
         Size = 0
       end>
-    Active = True
     AfterOpen = sql_timesheetAfterOpen
     Database = db_con
     Transaction = sql_tran
@@ -269,7 +267,6 @@ object dm_main: Tdm_main
     top = 72
   end
   object sql_categories: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'id'
@@ -289,7 +286,6 @@ object dm_main: Tdm_main
         Precision = -1
         Size = 0
       end>
-    Active = True
     Database = db_con
     Transaction = sql_tran
     ReadOnly = True
