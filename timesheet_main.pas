@@ -127,7 +127,9 @@ begin
     elapsed := 0;
     while not EOF do
     begin
-      if (not FieldByName('used').IsNull) and (FieldByName('used').AsInteger <> 0) then
+      if (not FieldByName('used').IsNull) and
+         (FieldByName('used').AsInteger <> 0) and
+         (FieldByName('time').AsInteger > 0) then
         elapsed := elapsed + FieldByName('time').AsInteger;
       Next;
     end;
@@ -151,7 +153,9 @@ begin
     for i := 0 to (grid.SelectedRows.Count - 1) do
     begin
       GotoBookmark(grid.SelectedRows.Items[i]);
-      if (not FieldByName('used').IsNull) and (FieldByName('used').AsInteger <> 0) then
+      if (not FieldByName('used').IsNull) and
+         (FieldByName('used').AsInteger <> 0) and
+         (FieldByName('time').AsInteger > 0) then
         elapsed := elapsed + FieldByName('time').AsInteger;
     end;
   end;

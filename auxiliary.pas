@@ -26,10 +26,14 @@ var
   hours: Longint;
   mins: Longint;
 begin
-  hours := minutes div min_per_hour;
-  mins := minutes mod min_per_hour;
+  hours := abs(minutes) div min_per_hour;
+  mins := abs(minutes) mod min_per_hour;
+  if minutes < 0 then
+    Result := '-'
+  else
+    Result := '';
   if hours < 10 then
-    Result := '0';
+    Result := Result + '0';
   Result := Result + IntToStr(hours) + ':';
   if mins < 10 then
     Result := Result + '0';
