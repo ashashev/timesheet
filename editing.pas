@@ -76,6 +76,9 @@ end;
 
 procedure Tediting_form.FormShow(Sender: TObject);
 begin
+  if not e_category.ListSource.DataSet.Active then
+    e_category.ListSource.DataSet.Open;
+
   with dm_main.sql_timesheet do
   begin
     case f_editing_mode of

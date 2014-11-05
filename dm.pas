@@ -83,7 +83,7 @@ end;
 
 procedure Tdm_main.DataModuleCreate(Sender: TObject);
 begin
-  sql_timesheet.Open;
+
 end;
 
 procedure Tdm_main.act_newExecute(Sender: TObject);
