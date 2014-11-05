@@ -1,0 +1,373 @@
+object editing_form: Tediting_form
+  Left = 390
+  Height = 250
+  Top = 290
+  Width = 560
+  Caption = 'editing_form'
+  ClientHeight = 250
+  ClientWidth = 560
+  Constraints.MinHeight = 250
+  Constraints.MinWidth = 560
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.2.6.0'
+  object Panel1: TPanel
+    Left = 10
+    Height = 35
+    Top = 5
+    Width = 540
+    Align = alTop
+    BorderSpacing.Left = 10
+    BorderSpacing.Top = 5
+    BorderSpacing.Right = 10
+    BevelOuter = bvNone
+    ClientHeight = 35
+    ClientWidth = 540
+    TabOrder = 0
+    object Panel7: TPanel
+      Left = 390
+      Height = 35
+      Top = 0
+      Width = 150
+      Align = alRight
+      BevelOuter = bvNone
+      Caption = 'Panel7'
+      ClientHeight = 35
+      ClientWidth = 150
+      TabOrder = 0
+      object e_date: TDateEdit
+        Left = 0
+        Height = 35
+        Top = 0
+        Width = 112
+        CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+        OKCaption = 'OK'
+        CancelCaption = 'Cancel'
+        DefaultToday = True
+        DateOrder = doDMY
+        ButtonWidth = 35
+        Align = alLeft
+        CharCase = ecNormal
+        Glyph.Data = {
+          36090000424D3609000000000000360000002800000018000000180000000100
+          2000000000000009000064000000640000000000000000000000000000FC0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F3000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF00000000000000000000
+          0000000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF00000000000000000000
+          0000000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000000000000000000000000000FF000000FF000000FF0000
+          00000000000000000000000000FF000000FF000000FF00000000000000000000
+          0000000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000F8000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+          00FF000000FF000000FF000000FF000000000000000000000000
+        }
+        NumGlyphs = 1
+        MaxLength = 10
+        TabOrder = 0
+      end
+    end
+  end
+  object Panel2: TPanel
+    Left = 10
+    Height = 35
+    Top = 210
+    Width = 540
+    Align = alBottom
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 5
+    BevelOuter = bvNone
+    ClientHeight = 35
+    ClientWidth = 540
+    TabOrder = 5
+    object btn_ok: TBitBtn
+      Left = 340
+      Height = 35
+      Top = 0
+      Width = 100
+      Align = alRight
+      Default = True
+      DefaultCaption = True
+      Kind = bkOK
+      ModalResult = 1
+      OnClick = btn_okClick
+      TabOrder = 0
+    end
+    object btn_cancel: TBitBtn
+      Left = 440
+      Height = 35
+      Top = 0
+      Width = 100
+      Align = alRight
+      Cancel = True
+      DefaultCaption = True
+      Kind = bkCancel
+      ModalResult = 2
+      TabOrder = 1
+    end
+  end
+  object Panel3: TPanel
+    Left = 10
+    Height = 35
+    Top = 40
+    Width = 540
+    Align = alTop
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BevelOuter = bvNone
+    ClientHeight = 35
+    ClientWidth = 540
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 0
+      Height = 30
+      Top = 5
+      Width = 70
+      Align = alLeft
+      AutoSize = False
+      BorderSpacing.Top = 5
+      Caption = 'Category: '
+      ParentColor = False
+    end
+    object e_category: TDBLookupComboBox
+      Left = 70
+      Height = 35
+      Top = 0
+      Width = 202
+      Align = alLeft
+      KeyField = 'id'
+      ListField = 'name'
+      ListFieldIndex = 0
+      ListSource = ds_categories
+      LookupCache = False
+      OnChange = e_categoryChange
+      TabOrder = 0
+    end
+    object e_to: TMaskEdit
+      Left = 483
+      Height = 35
+      Top = 0
+      Width = 57
+      Align = alRight
+      CharCase = ecNormal
+      MaxLength = 5
+      TabOrder = 2
+      OnEditingDone = e_toEditingDone
+      EditMask = '##:##;1;_'
+      Text = '  :  '
+      SpaceChar = '_'
+    end
+    object Label6: TLabel
+      Left = 462
+      Height = 30
+      Top = 5
+      Width = 21
+      Align = alRight
+      BorderSpacing.Top = 5
+      Caption = ' to '
+      ParentColor = False
+    end
+    object e_from: TMaskEdit
+      Left = 406
+      Height = 35
+      Top = 0
+      Width = 56
+      Align = alRight
+      CharCase = ecNormal
+      MaxLength = 5
+      TabOrder = 1
+      OnEditingDone = e_fromEditingDone
+      EditMask = '##:##;1;_'
+      Text = '  :  '
+      SpaceChar = '_'
+    end
+    object Label5: TLabel
+      Left = 374
+      Height = 30
+      Top = 5
+      Width = 32
+      Align = alRight
+      BorderSpacing.Top = 5
+      Caption = 'from '
+      ParentColor = False
+    end
+    object Label7: TLabel
+      Left = 324
+      Height = 30
+      Top = 5
+      Width = 50
+      Align = alRight
+      AutoSize = False
+      BorderSpacing.Top = 5
+      Caption = 'Time:'
+      ParentColor = False
+    end
+  end
+  object Panel4: TPanel
+    Left = 10
+    Height = 30
+    Top = 75
+    Width = 540
+    Align = alTop
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 540
+    TabOrder = 2
+    object Label2: TLabel
+      Left = 0
+      Height = 25
+      Top = 5
+      Width = 70
+      Align = alLeft
+      AutoSize = False
+      BorderSpacing.Top = 5
+      Caption = 'Code:'
+      ParentColor = False
+    end
+    object e_code: TEdit
+      Left = 70
+      Height = 30
+      Top = 0
+      Width = 470
+      Align = alClient
+      TabOrder = 0
+      Text = 'e_code'
+    end
+  end
+  object Panel5: TPanel
+    Left = 10
+    Height = 30
+    Top = 105
+    Width = 540
+    Align = alTop
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 540
+    TabOrder = 3
+    object Label3: TLabel
+      Left = 0
+      Height = 25
+      Top = 5
+      Width = 70
+      Align = alLeft
+      AutoSize = False
+      BorderSpacing.Top = 5
+      Caption = 'Task'
+      ParentColor = False
+    end
+    object e_task: TEdit
+      Left = 70
+      Height = 30
+      Top = 0
+      Width = 470
+      Align = alClient
+      TabOrder = 0
+      Text = 'e_task'
+    end
+  end
+  object Panel6: TPanel
+    Left = 10
+    Height = 30
+    Top = 135
+    Width = 540
+    Align = alTop
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 540
+    TabOrder = 4
+    object Label4: TLabel
+      Left = 0
+      Height = 25
+      Top = 5
+      Width = 70
+      Align = alLeft
+      AutoSize = False
+      BorderSpacing.Top = 5
+      Caption = 'Comment:'
+      ParentColor = False
+    end
+    object e_comment: TEdit
+      Left = 70
+      Height = 30
+      Top = 0
+      Width = 470
+      Align = alClient
+      TabOrder = 0
+      Text = 'e_comment'
+    end
+  end
+  object ds_categories: TDataSource
+    DataSet = dm_main.sql_categories
+    left = 184
+    top = 8
+  end
+end
