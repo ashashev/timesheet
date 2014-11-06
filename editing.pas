@@ -79,6 +79,10 @@ begin
   if not e_category.ListSource.DataSet.Active then
     e_category.ListSource.DataSet.Open;
 
+  e_category.ItemIndex := -1;
+  e_category.KeyValue := Null;
+  e_category.Text := '';
+
   with dm_main.sql_timesheet do
   begin
     case f_editing_mode of
