@@ -83,6 +83,7 @@ begin
   begin
     case f_editing_mode of
     em_new: begin
+      Caption := 'New Task';
       e_code.Text := '';
       e_task.Text := '';
       e_comment.Text := '';
@@ -90,6 +91,7 @@ begin
       e_to.Text := '';
       end;
     em_edit: begin
+      Caption := 'Editing';
       e_date.Date := StrToDate( FieldByName('date').AsString, date_format_str, date_separator);
       e_from.Text := auxiliary.minutes_to_string(FieldByName('time_from').Value);
       e_to.Text := auxiliary.minutes_to_string(FieldByName('time_to').Value);
@@ -110,7 +112,7 @@ end;
 procedure Tediting_form.btn_okClick(Sender: TObject);
 var
   query: TSQLQuery;
-  bookmark: TBookmark;
+  confirm_msg: String;
 begin
   if not validate_time(e_from)
     or not validate_time(e_to)
@@ -122,10 +124,27 @@ begin
     em_new:begin
       query := dm_main.sql_new;
       end;
-    em_edit: begin;
-      query := dm_main.sql_edit;
-      query.ParamByName('id').Value := dm_main.sql_timesheet.FieldByName('id').Value;
-      bookmark := dm_main.sql_timesheet.GetBookmark;
+    em_edit:
+      with dm_main.sql_timesheet do
+      begin
+        confirm_msg := 'Are you sure you want to change record?' + #13#10 +
+          'It was:' + #13#10 +
+          'Date: ' + FieldByName('date').AsString + #13#10 +
+          'Time: from ' +
+           auxiliary.minutes_to_string(FieldByName('time_from').Value) +
+          ' to ' +
+           auxiliary.minutes_to_string(FieldByName('time_to').Value) + #13#10 +
+          'Task: ' + FieldByName('task').AsString + #13#10 +
+          'Elapsed: ' +
+           auxiliary.minutes_to_string(FieldByName('time').Value);
+        if MessageDlg('Confirm', confirm_msg,
+           mtConfirmation,[mbYes,mbCancel],0,mbCancel) <> mrYes then
+        begin
+          ModalResult := 0;
+          Exit;
+        end;
+        query := dm_main.sql_edit;
+        query.ParamByName('id').Value := FieldByName('id').Value;
       end;
     end;
 

@@ -70,6 +70,7 @@ end;
 
 procedure Ttimesheet_main_form.FormCreate(Sender: TObject);
 begin
+  Caption := 'Timesheet';
   cur_date.Button.Flat := True;
   cur_date.Date := Now;
 end;
