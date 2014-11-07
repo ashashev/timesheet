@@ -97,8 +97,8 @@ begin
     em_edit: begin
       Caption := 'Editing';
       e_date.Date := StrToDate( FieldByName('date').AsString, date_format_str, date_separator);
-      e_from.Text := auxiliary.minutes_to_string(FieldByName('time_from').Value);
-      e_to.Text := auxiliary.minutes_to_string(FieldByName('time_to').Value);
+      e_from.Text := auxiliary.minutes_variant_to_string(FieldByName('time_from').Value);
+      e_to.Text := auxiliary.minutes_variant_to_string(FieldByName('time_to').Value);
       e_category.KeyValue := FieldByName('category').Value;
       e_code.Text := FieldByName('task_code').AsString;
       e_task.Text := FieldByName('task_description').AsString;
@@ -132,15 +132,7 @@ begin
       with dm_main.sql_timesheet do
       begin
         confirm_msg := 'Are you sure you want to change record?' + #13#10 +
-          'It was:' + #13#10 +
-          'Date: ' + FieldByName('date').AsString + #13#10 +
-          'Time: from ' +
-           auxiliary.minutes_to_string(FieldByName('time_from').Value) +
-          ' to ' +
-           auxiliary.minutes_to_string(FieldByName('time_to').Value) + #13#10 +
-          'Task: ' + FieldByName('task').AsString + #13#10 +
-          'Elapsed: ' +
-           auxiliary.minutes_to_string(FieldByName('time').Value);
+          'It was:' + #13#10 + dm_main.make_msg_body_for_cur_row();
         if MessageDlg('Confirm', confirm_msg,
            mtConfirmation,[mbYes,mbCancel],0,mbCancel) <> mrYes then
         begin
@@ -195,8 +187,8 @@ begin
   with query do
   begin
     ParamByName('date').Value := FormatDateTime(date_format_str,e_date.Date);
-    ParamByName('time_from').Value := auxiliary.string_to_minutes(e_from.Text);
-    ParamByName('time_to').Value := auxiliary.string_to_minutes(e_to.Text);
+    ParamByName('time_from').Value := auxiliary.string_to_minutes_variant(e_from.Text);
+    ParamByName('time_to').Value := auxiliary.string_to_minutes_variant(e_to.Text);
     ParamByName('category').Value := e_category.KeyValue;
     ParamByName('task_code').Value := e_code.Text;
     ParamByName('task_description').Value := e_task.Text;

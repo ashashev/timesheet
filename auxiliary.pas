@@ -16,6 +16,8 @@ const
 
 function minutes_to_string( minutes: Longint ): String;
 function string_to_minutes( s_time: String ): Longint;
+function string_to_minutes_variant( s_time: String ): Variant;
+function minutes_variant_to_string( minutes: Variant; str_null: String = '' ): String;
 function validate_time_string( s_time: String ): Boolean;
 
 implementation
@@ -50,12 +52,28 @@ begin
   Result := hours * min_per_hour + minutes;
 end;
 
+function string_to_minutes_variant( s_time: String ): Variant;
+begin
+  if (s_time <> empty_time_str) and (s_time <> '') then
+    Result := string_to_minutes( s_time )
+  else
+    Result := Null;
+end;
+
+function minutes_variant_to_string( minutes: Variant; str_null: String = ''  ): String;
+begin
+  if minutes <> Null then
+    Result := minutes_to_string( minutes )
+  else
+    Result := str_null;
+end;
+
 function validate_time_string( s_time: String ): Boolean;
 var
   hours, minutes: Integer;
 begin
   Result := true;
-  if s_time <> empty_time_str then
+  if (s_time <> empty_time_str) and (s_time <> '') then
   begin
     s_time := StringReplace( s_time, ' ', '0', [rfReplaceAll] );
     hours := StrToInt( Copy( s_time, 1, 2 ) );

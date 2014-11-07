@@ -62,6 +62,7 @@ type
     { private declarations }
   public
     { public declarations }
+    function make_msg_body_for_cur_row(): String;
   end; 
 
 var
@@ -103,10 +104,7 @@ var
   confirm_msg: String;
 begin
   confirm_msg := 'Are you sure you want to delete this record?' + #13#10 +
-    'Date: ' + sql_timesheet.FieldByName('date').AsString + #13#10 +
-    'Task: ' + sql_timesheet.FieldByName('task').AsString + #13#10 +
-    'Elapsed: ' +
-    auxiliary.minutes_to_string(sql_timesheet.FieldByName('time').Value);
+    dm_main.make_msg_body_for_cur_row();
 
   if MessageDlg(
       'Confirm',
@@ -143,19 +141,28 @@ end;
 procedure Tdm_main.sql_timesheettimeGetText(Sender: TField; var aText: string;
     DisplayText: Boolean);
 begin
-  aText:= auxiliary.minutes_to_string(sql_timesheettime.Value);
+  if not sql_timesheettime.IsNull then
+    aText:= auxiliary.minutes_to_string(sql_timesheettime.Value)
+  else
+    aText := '';
 end;
 
 procedure Tdm_main.sql_timesheettime_fromGetText(Sender: TField;
     var aText: string; DisplayText: Boolean);
 begin
-    aText:= auxiliary.minutes_to_string(sql_timesheettime_from.Value);
+  if not sql_timesheettime_from.IsNull then
+    aText := auxiliary.minutes_to_string(sql_timesheettime_from.Value)
+  else
+    aText := '';
 end;
 
 procedure Tdm_main.sql_timesheettime_toGetText(Sender: TField;
     var aText: string; DisplayText: Boolean);
 begin
-  aText:= auxiliary.minutes_to_string(sql_timesheettime_to.Value);
+  if not sql_timesheettime_to.IsNull then
+    aText:= auxiliary.minutes_to_string(sql_timesheettime_to.Value)
+  else
+    aText := '';
 end;
 
 procedure Tdm_main.show_timesheet_on_week(start_week: TDateTime);
@@ -166,6 +173,22 @@ begin
   sql_timesheet.ParamByName('dateto').Value :=
       FormatDateTime(date_format_str, start_week + (days_per_week - 1));
   sql_timesheet.Open;
+end;
+
+function Tdm_main.make_msg_body_for_cur_row(): String;
+begin
+  with sql_timesheet do
+  begin
+    Result := 'Date: ' + FieldByName('date').AsString + #13#10 +
+      'Time: from ' +
+       auxiliary.minutes_variant_to_string(FieldByName('time_from').Value, '-') +
+      ' to ' +
+       auxiliary.minutes_variant_to_string(FieldByName('time_to').Value, '-') +
+       #13#10 +
+      'Task: ' + FieldByName('task').AsString + #13#10 +
+      'Elapsed: ' +
+       auxiliary.minutes_variant_to_string(FieldByName('time').Value, '-');
+  end;
 end;
 
 end.
