@@ -50,6 +50,7 @@ type
     f_editing_mode: EditingMode;
 
     function validate_time( obj: TMaskEdit ): Boolean;
+    function validate_time(): Boolean;
     procedure fill_query_params(query: TSQLQuery);
   public
     { public declarations }
@@ -118,9 +119,7 @@ var
   query: TSQLQuery;
   confirm_msg: String;
 begin
-  if not validate_time(e_from)
-    or not validate_time(e_to)
-    then
+  if not validate_time then
     ModalResult:=0
   else
   begin
@@ -179,6 +178,21 @@ begin
       obj.SetFocus;
       Result := false;
     end;
+  end;
+end;
+
+function Tediting_form.validate_time: Boolean;
+begin
+  Result := true;
+  if validate_time(e_from) and validate_time(e_to) then
+  begin
+    if (e_from.Text <> empty_time_str) and (e_to.Text <> empty_time_str) then
+      if string_to_minutes(e_from.Text) > string_to_minutes(e_to.Text) then
+      begin
+        ShowMessage('Invalid time!' + #13#10 +
+          'The value "Time To" must be more than the value "Time From"');
+        Result := false;
+      end;
   end;
 end;
 
