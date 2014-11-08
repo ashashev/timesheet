@@ -134,7 +134,7 @@ begin
   else
   begin
     case f_editing_mode of
-    em_new:begin
+    em_new, em_new_form_sel:begin
       query := dm_main.sql_new;
       end;
     em_edit:
