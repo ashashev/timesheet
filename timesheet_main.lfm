@@ -80,14 +80,14 @@ object timesheet_main_form: Ttimesheet_main_form
       Action = dm_main.act_delete
     end
     object ToolButton4: TToolButton
-      Left = 97
+      Left = 129
       Top = 2
       Width = 10
       Caption = 'ToolButton4'
       Style = tbsSeparator
     end
     object Panel1: TPanel
-      Left = 107
+      Left = 139
       Height = 32
       Top = 2
       Width = 154
@@ -191,6 +191,11 @@ object timesheet_main_form: Ttimesheet_main_form
         OnEditingDone = cur_dateEditingDone
         TabOrder = 0
       end
+    end
+    object ToolButton5: TToolButton
+      Left = 97
+      Top = 2
+      Action = dm_main.act_new_from_sel
     end
   end
   object ds_timesheet: TDataSource

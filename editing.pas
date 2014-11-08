@@ -10,7 +10,7 @@ uses
 
 type
 
-  EditingMode = ( em_new, em_edit );
+  EditingMode = ( em_new, em_edit, em_new_form_sel );
 
   { Tediting_form }
 
@@ -87,11 +87,21 @@ begin
   with dm_main.sql_timesheet do
   begin
     case f_editing_mode of
-    em_new: begin
+    em_new, em_new_form_sel: begin
       Caption := 'New Task';
-      e_code.Text := '';
-      e_task.Text := '';
-      e_comment.Text := '';
+      if f_editing_mode = em_new_form_sel then
+      begin
+        e_category.KeyValue := FieldByName('category').Value;
+        e_code.Text := FieldByName('task_code').AsString;
+        e_task.Text := FieldByName('task_description').AsString;
+        e_comment.Text := FieldByName('comment').AsString;
+      end
+      else
+      begin
+        e_code.Text := '';
+        e_task.Text := '';
+        e_comment.Text := '';
+      end;
       e_from.Text := '';
       e_to.Text := '';
       end;

@@ -16,6 +16,7 @@ type
   { Tdm_main }
 
   Tdm_main = class(TDataModule)
+    act_new_from_sel: TAction;
     actions: TActionList;
     act_delete: TAction;
     act_edit: TAction;
@@ -42,6 +43,7 @@ type
       sql_timesheetused: TLongintField;
       sql_tran: TSQLTransaction;
       sql_timesheet: TSQLQuery;
+      procedure act_new_from_selExecute(Sender: TObject);
       procedure act_deleteExecute(Sender: TObject);
       procedure act_editExecute(Sender: TObject);
       procedure act_newExecute(Sender: TObject);
@@ -124,6 +126,12 @@ begin
       sql_tran.Rollback;
     sql_timesheet.Open;
   end;
+end;
+
+procedure Tdm_main.act_new_from_selExecute(Sender: TObject);
+begin
+  editing_form.editing_mode := em_new_form_sel;
+  editing_form.ShowModal;
 end;
 
 procedure Tdm_main.sql_categoriesnameGetText(Sender: TField; var aText: string;

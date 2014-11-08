@@ -23,6 +23,7 @@ type
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
     tool_bar: TToolBar;
     procedure cur_dateChange(Sender: TObject);
     procedure cur_dateEditingDone(Sender: TObject);
