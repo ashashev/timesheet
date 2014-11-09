@@ -105,7 +105,7 @@ object timesheet_main_form: Ttimesheet_main_form
         OKCaption = 'OK'
         CancelCaption = 'Cancel'
         DefaultToday = True
-        DateOrder = doDMY
+        DateOrder = doNone
         ButtonWidth = 32
         Align = alLeft
         CharCase = ecNormal
@@ -186,7 +186,7 @@ object timesheet_main_form: Ttimesheet_main_form
           00FF000000FF000000FF000000FF000000000000000000000000
         }
         NumGlyphs = 1
-        MaxLength = 10
+        MaxLength = 0
         OnChange = cur_dateChange
         OnEditingDone = cur_dateEditingDone
         TabOrder = 0

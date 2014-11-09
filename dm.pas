@@ -80,13 +80,22 @@ uses auxiliary, editing, timesheet_main, dialogs;
 
 procedure Tdm_main.sql_timesheetdateGetText(Sender: TField; var aText: string;
     DisplayText: Boolean);
+var
+  curDate: TDateTime;
+  strDate: String;
 begin
-  aText := sql_timesheetdate.AsString;
+  try
+    curDate := StrToDate(sql_timesheetdate.AsString,date_format_str,date_separator);
+    aText := DateToStr(curDate);
+  except
+    aText := '';
+  end;
 end;
 
 procedure Tdm_main.DataModuleCreate(Sender: TObject);
 begin
-
+  DateSeparator := '.';
+  ShortDateFormat := 'dd.mm.yyyy';
 end;
 
 procedure Tdm_main.act_newExecute(Sender: TObject);
@@ -184,10 +193,13 @@ begin
 end;
 
 function Tdm_main.make_msg_body_for_cur_row(): String;
+var
+  date: TDateTime;
 begin
   with sql_timesheet do
   begin
-    Result := 'Date: ' + FieldByName('date').AsString + #13#10 +
+    date := StrToDate(FieldByName('date').AsString, date_format_str, date_separator);
+    Result := 'Date: ' + DateToStr(date) + #13#10 +
       'Time: from ' +
        auxiliary.minutes_variant_to_string(FieldByName('time_from').Value, '-') +
       ' to ' +

@@ -13,8 +13,8 @@ uses
 
 begin
   Application.Initialize;
-    Application.CreateForm(Ttimesheet_main_form, timesheet_main_form);
-    Application.CreateForm(Tdm_main, dm_main);
+  Application.CreateForm(Tdm_main, dm_main);
+  Application.CreateForm(Ttimesheet_main_form, timesheet_main_form);
   Application.CreateForm(Tediting_form, editing_form);
   Application.Run;
 end.

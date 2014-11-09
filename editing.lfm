@@ -44,7 +44,7 @@ object editing_form: Tediting_form
         OKCaption = 'OK'
         CancelCaption = 'Cancel'
         DefaultToday = True
-        DateOrder = doDMY
+        DateOrder = doNone
         ButtonWidth = 35
         Align = alLeft
         CharCase = ecNormal
@@ -125,7 +125,7 @@ object editing_form: Tediting_form
           00FF000000FF000000FF000000FF000000000000000000000000
         }
         NumGlyphs = 1
-        MaxLength = 10
+        MaxLength = 0
         TabOrder = 0
       end
     end
