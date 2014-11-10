@@ -18,7 +18,6 @@ object dm_main: Tdm_main
     top = 8
   end
   object sql_timesheet: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'id'
@@ -796,5 +795,42 @@ object dm_main: Tdm_main
       00B2000000E6000000E6000000B20000007E0000004A00000003FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
+  end
+  object sqlTimeCrosscup: TSQLQuery
+    FieldDefs = <>
+    Database = db_con
+    Transaction = sql_tran
+    SQL.Strings = (
+      'select'
+      '*'
+      'from timesheet ts'
+      'where'
+      '  (ts.date = :date) and'
+      '  (not( (ts.time_from >= :time_to) or (ts.time_to <= :time_from) )) and'
+      '  ifnull(ts.id <> :id, 1 )'
+    )
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'date'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'time_to'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'time_from'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    left = 168
+    top = 136
   end
 end

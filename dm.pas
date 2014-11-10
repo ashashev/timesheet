@@ -23,6 +23,7 @@ type
     act_new: TAction;
       db_con: TSQLite3Connection;
       images: TImageList;
+      sqlTimeCrosscup: TSQLQuery;
       sql_delete: TSQLQuery;
       sql_new: TSQLQuery;
       sql_edit: TSQLQuery;

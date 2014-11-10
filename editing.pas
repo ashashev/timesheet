@@ -202,6 +202,28 @@ begin
         ShowMessage('Invalid time!' + #13#10 +
           'The value "Time To" must be more than the value "Time From"');
         Result := false;
+      end
+      else
+      begin
+        with dm_main.sqlTimeCrosscup do
+        begin
+          Close;
+          ParamByName('date').Value := FormatDateTime(date_format_str,e_date.Date);
+          ParamByName('time_from').Value := auxiliary.string_to_minutes_variant(e_from.Text);
+          ParamByName('time_to').Value := auxiliary.string_to_minutes_variant(e_to.Text);
+          if f_editing_mode <> em_edit then
+            ParamByName('id').Value := Null
+          else
+            ParamByName('id').Value := dm_main.sql_timesheet.FieldByName('id').Value;
+          Open;
+          First;
+          if not Eof then
+          begin
+            ShowMessage('There are time crosscups!');
+            Result := false;
+          end;
+          Close;
+        end;
       end;
   end;
 end;
