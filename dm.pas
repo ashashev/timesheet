@@ -37,8 +37,8 @@ type
       sql_timesheettask: TStringField;
       sql_timesheettask_code: TMemoField;
       sql_timesheettask_description: TMemoField;
-      sql_timesheettime: TLargeintField;
-      sql_timesheettime_from: TLongintField;
+      sql_timesheettime: TLongintField;
+      sql_timesheettime_from:TLongintField;
       sql_timesheettime_to: TLongintField;
       sql_timesheetused: TLongintField;
       sql_tran: TSQLTransaction;
@@ -53,6 +53,8 @@ type
       procedure sql_timesheetAfterOpen(DataSet: TDataSet);
       procedure sql_timesheetdateGetText(Sender: TField; var aText: string;
           DisplayText: Boolean);
+      procedure sql_timesheettaskGetText(Sender: TField; var aText: string;
+        DisplayText: Boolean);
       procedure sql_timesheettimeGetText(Sender: TField; var aText: string;
           DisplayText: Boolean);
       procedure sql_timesheettime_fromGetText(Sender: TField;
@@ -92,10 +94,18 @@ begin
   end;
 end;
 
+procedure Tdm_main.sql_timesheettaskGetText(Sender: TField; var aText: string;
+  DisplayText: Boolean);
+begin
+  aText := Copy(sql_timesheettask.AsString,1,255);
+end;
+
 procedure Tdm_main.DataModuleCreate(Sender: TObject);
 begin
   DateSeparator := '.';
   ShortDateFormat := 'dd.mm.yyyy';
+  db_con.Close(True);
+  db_con.Open;
 end;
 
 procedure Tdm_main.act_newExecute(Sender: TObject);

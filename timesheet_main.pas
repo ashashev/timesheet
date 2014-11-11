@@ -30,10 +30,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure gridCellClick(Column: TColumn);
-    procedure gridEditingDone(Sender: TObject);
     procedure gridKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    notCallUpdateDate: Boolean;
     procedure update_date;
   public
     { public declarations }
@@ -60,35 +60,33 @@ const
 
 procedure Ttimesheet_main_form.cur_dateChange(Sender: TObject);
 begin
-  if not cur_date.Focused then
+  if (not notCallUpdateDate) and (not cur_date.Focused) then
     update_date;
 end;
 
 procedure Ttimesheet_main_form.cur_dateEditingDone(Sender: TObject);
 begin
-  update_date;
+  if not notCallUpdateDate then
+    update_date;
 end;
 
 procedure Ttimesheet_main_form.FormCreate(Sender: TObject);
 begin
   Caption := 'Timesheet';
   cur_date.Button.Flat := True;
+  notCallUpdateDate := True;
   cur_date.Date := Now;
 end;
 
 procedure Ttimesheet_main_form.FormShow(Sender: TObject);
 begin
+  notCallUpdateDate:=False;;
   update_date;
 end;
 
 procedure Ttimesheet_main_form.gridCellClick(Column: TColumn);
 begin
   update_select_elapsed;
-end;
-
-procedure Ttimesheet_main_form.gridEditingDone(Sender: TObject);
-begin
-
 end;
 
 procedure Ttimesheet_main_form.gridKeyUp(Sender: TObject; var Key: Word;
@@ -100,17 +98,24 @@ end;
 procedure Ttimesheet_main_form.update_date;
 var
   curday: Integer;
+  newDate: TDateTime;
 begin
+  Assert(not notCallUpdateDate, 'Flag notCallUpdateDate was set.');
+
+  notCallUpdateDate := True;
   with cur_date do
   begin
     curday := DayOfWeek(Date);
+
     if curday = sunday then
       Date := Date - (days_per_week - 1)
     else
       Date := Date - (curday - monday);
+
     dm_main.show_timesheet_on_week(Date);
     status.Panels.Items[panel_week].Text := IntToStr(WeekOf(Date));
   end;
+  notCallUpdateDate := False;
 end;
 
 procedure Ttimesheet_main_form.update_total_elapsed;
@@ -118,9 +123,7 @@ var
   bookmark: TBookmark;
   elapsed: Longint;
 begin
-  if not grid.DataSource.DataSet.Active then
-    grid.DataSource.DataSet.Open;
-
+  Exit;
   bookmark := grid.DataSource.DataSet.GetBookmark;
   grid.DataSource.DataSet.DisableControls;
   with grid.DataSource.DataSet do
@@ -131,6 +134,7 @@ begin
     begin
       if (not FieldByName('used').IsNull) and
          (FieldByName('used').AsInteger <> 0) and
+         (not FieldByName('time').IsNull) and
          (FieldByName('time').AsInteger > 0) then
         elapsed := elapsed + FieldByName('time').AsInteger;
       Next;
@@ -147,6 +151,7 @@ var
   bookmark: TBookmark;
   elapsed: Longint;
 begin
+  Exit;
   bookmark := grid.DataSource.DataSet.GetBookmark;
   grid.DataSource.DataSet.DisableControls;
   elapsed := 0;
@@ -157,6 +162,7 @@ begin
       GotoBookmark(grid.SelectedRows.Items[i]);
       if (not FieldByName('used').IsNull) and
          (FieldByName('used').AsInteger <> 0) and
+         (not FieldByName('time').IsNull) and
          (FieldByName('time').AsInteger > 0) then
         elapsed := elapsed + FieldByName('time').AsInteger;
     end;
