@@ -219,7 +219,10 @@ begin
           First;
           if not Eof then
           begin
-            ShowMessage('There are time crosscups!');
+            ShowMessage('There are time crosscups on date ' +
+                DateToStr(e_date.Date) + '!' + #13#10 +
+                dm_main.makeMsgBodyForTimeCrosscup
+              );
             Result := false;
           end;
           Close;

@@ -68,6 +68,7 @@ type
   public
     { public declarations }
     function make_msg_body_for_cur_row(): String;
+    function makeMsgBodyForTimeCrosscup: String;
   end; 
 
 var
@@ -219,6 +220,26 @@ begin
       'Task: ' + FieldByName('task').AsString + #13#10 +
       'Elapsed: ' +
        auxiliary.minutes_variant_to_string(FieldByName('time').Value, '-');
+  end;
+end;
+
+function Tdm_main.makeMsgBodyForTimeCrosscup: String;
+begin
+  Result := '';
+  with sqlTimeCrosscup do
+  begin
+    First;
+    while not Eof do
+    begin
+      Result := Result +
+        'Time: from ' +
+        auxiliary.minutes_variant_to_string(FieldByName('time_from').Value, '-') +
+        ' to ' +
+        auxiliary.minutes_variant_to_string(FieldByName('time_to').Value, '-') +
+        #13#10 +
+        'Task: ' + FieldByName('task').AsString + #13#10;
+      Next;
+    end;
   end;
 end;
 

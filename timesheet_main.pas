@@ -123,7 +123,6 @@ var
   bookmark: TBookmark;
   elapsed: Longint;
 begin
-  Exit;
   bookmark := grid.DataSource.DataSet.GetBookmark;
   grid.DataSource.DataSet.DisableControls;
   with grid.DataSource.DataSet do
@@ -151,7 +150,6 @@ var
   bookmark: TBookmark;
   elapsed: Longint;
 begin
-  Exit;
   bookmark := grid.DataSource.DataSet.GetBookmark;
   grid.DataSource.DataSet.DisableControls;
   elapsed := 0;
