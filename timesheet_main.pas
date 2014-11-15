@@ -141,6 +141,7 @@ begin
     status.Panels.Items[panel_total_elapsed].Text := auxiliary.minutes_to_string(elapsed);
   end;
   grid.DataSource.DataSet.GotoBookmark(bookmark);
+  grid.DataSource.DataSet.FreeBookmark(bookmark);
   grid.DataSource.DataSet.EnableControls;
 end;
 
@@ -166,6 +167,7 @@ begin
     end;
   end;
   grid.DataSource.DataSet.GotoBookmark(bookmark);
+  grid.DataSource.DataSet.FreeBookmark(bookmark);
   grid.DataSource.DataSet.EnableControls;
   status.Panels.Items[panel_select_elapsed].Text := auxiliary.minutes_to_string(elapsed);
 end;
