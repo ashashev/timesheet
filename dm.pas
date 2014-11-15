@@ -38,7 +38,7 @@ type
       sql_timesheettask: TStringField;
       sql_timesheettask_code: TMemoField;
       sql_timesheettask_description: TMemoField;
-      sql_timesheettime: TLongintField;
+      sql_timesheettime: TLargeintField;
       sql_timesheettime_from:TLongintField;
       sql_timesheettime_to: TLongintField;
       sql_timesheetused: TLongintField;
