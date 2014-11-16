@@ -1,9 +1,9 @@
-object timesheet_main_form: Ttimesheet_main_form
+object mainForm: TmainForm
   Left = 297
   Height = 451
   Top = 191
   Width = 830
-  Caption = 'timesheet_main_form'
+  Caption = 'mainForm'
   ClientHeight = 451
   ClientWidth = 830
   OnCreate = FormCreate
@@ -18,7 +18,7 @@ object timesheet_main_form: Ttimesheet_main_form
     AutoEdit = False
     Color = clWindow
     Columns = <>
-    DataSource = ds_timesheet
+    DataSource = dsTimesheet
     Flat = True
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect]
     TabOrder = 0
@@ -54,49 +54,49 @@ object timesheet_main_form: Ttimesheet_main_form
       end>
     SimplePanel = False
   end
-  object tool_bar: TToolBar
+  object toolBar: TToolBar
     Left = 0
     Height = 35
     Top = 0
     Width = 830
     ButtonHeight = 32
     ButtonWidth = 32
-    Caption = 'tool_bar'
-    Images = dm_main.images
+    Caption = 'toolBar'
+    Images = dmMain.images
     TabOrder = 2
-    object ToolButton1: TToolButton
+    object toolButton1: TToolButton
       Left = 1
       Top = 2
-      Action = dm_main.act_new
+      Action = dmMain.actNew
     end
-    object ToolButton2: TToolButton
+    object toolButton2: TToolButton
       Left = 33
       Top = 2
-      Action = dm_main.act_edit
+      Action = dmMain.actEdit
     end
-    object ToolButton3: TToolButton
+    object toolButton3: TToolButton
       Left = 65
       Top = 2
-      Action = dm_main.act_delete
+      Action = dmMain.actDelete
     end
-    object ToolButton4: TToolButton
+    object toolButton4: TToolButton
       Left = 129
       Top = 2
       Width = 10
-      Caption = 'ToolButton4'
+      Caption = 'toolButton4'
       Style = tbsSeparator
     end
-    object Panel1: TPanel
+    object panel1: TPanel
       Left = 139
       Height = 32
       Top = 2
       Width = 154
       BevelOuter = bvNone
-      Caption = 'Panel1'
+      Caption = 'panel1'
       ClientHeight = 32
       ClientWidth = 154
       TabOrder = 0
-      object cur_date: TDateEdit
+      object curDate: TDateEdit
         Left = 0
         Height = 32
         Top = 0
@@ -187,19 +187,19 @@ object timesheet_main_form: Ttimesheet_main_form
         }
         NumGlyphs = 1
         MaxLength = 0
-        OnChange = cur_dateChange
-        OnEditingDone = cur_dateEditingDone
+        OnChange = curDateChange
+        OnEditingDone = curDateEditingDone
         TabOrder = 0
       end
     end
-    object ToolButton5: TToolButton
+    object toolButton5: TToolButton
       Left = 97
       Top = 2
-      Action = dm_main.act_new_from_sel
+      Action = dmMain.actNewFromSel
     end
   end
-  object ds_timesheet: TDataSource
-    DataSet = dm_main.sql_timesheet
+  object dsTimesheet: TDataSource
+    DataSet = dmMain.sqlTimesheet
     left = 48
     top = 208
   end

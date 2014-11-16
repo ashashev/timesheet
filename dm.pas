@@ -8,71 +8,71 @@ uses
   Classes, SysUtils, sqlite3conn, sqldb, db, FileUtil, ActnList, Controls;
 
 const
-  date_format_str = 'yyyy-mm-dd';
-  date_separator = '-';
+  dbDateFormatStr = 'yyyy-mm-dd';
+  dbDateSeparator = '-';
 
 type
 
-  { Tdm_main }
+  { TdmMain }
 
-  Tdm_main = class(TDataModule)
-    act_new_from_sel: TAction;
+  TdmMain = class(TDataModule)
+    actNewFromSel: TAction;
     actions: TActionList;
-    act_delete: TAction;
-    act_edit: TAction;
-    act_new: TAction;
-      db_con: TSQLite3Connection;
-      images: TImageList;
-      sqlTimeCrosscup: TSQLQuery;
-      sql_delete: TSQLQuery;
-      sql_new: TSQLQuery;
-      sql_edit: TSQLQuery;
-      sql_categories: TSQLQuery;
-      sql_categoriesid: TLongintField;
-      sql_categoriesname: TMemoField;
-      sql_categoriesused: TLongintField;
-      sql_timesheetcategory: TLongintField;
-      sql_timesheetcomment: TMemoField;
-      sql_timesheetdate: TMemoField;
-      sql_timesheetid: TLongintField;
-      sql_timesheettask: TStringField;
-      sql_timesheettask_code: TMemoField;
-      sql_timesheettask_description: TMemoField;
-      sql_timesheettime: TLargeintField;
-      sql_timesheettime_from:TLongintField;
-      sql_timesheettime_to: TLongintField;
-      sql_timesheetused: TLongintField;
-      sql_tran: TSQLTransaction;
-      sql_timesheet: TSQLQuery;
-      procedure act_new_from_selExecute(Sender: TObject);
-      procedure act_deleteExecute(Sender: TObject);
-      procedure act_editExecute(Sender: TObject);
-      procedure act_newExecute(Sender: TObject);
-      procedure DataModuleCreate(Sender: TObject);
-      procedure sql_categoriesnameGetText(Sender: TField; var aText: string;
-        DisplayText: Boolean);
-      procedure sql_timesheetAfterOpen(DataSet: TDataSet);
-      procedure sql_timesheetdateGetText(Sender: TField; var aText: string;
-          DisplayText: Boolean);
-      procedure sql_timesheettaskGetText(Sender: TField; var aText: string;
-        DisplayText: Boolean);
-      procedure sql_timesheettimeGetText(Sender: TField; var aText: string;
-          DisplayText: Boolean);
-      procedure sql_timesheettime_fromGetText(Sender: TField;
-          var aText: string; DisplayText: Boolean);
-      procedure sql_timesheettime_toGetText(Sender: TField; var aText: string;
-          DisplayText: Boolean);
-      procedure show_timesheet_on_week(start_week: TDateTime);
+    actDelete: TAction;
+    actEdit: TAction;
+    actNew: TAction;
+    dbCon: TSQLite3Connection;
+    images: TImageList;
+    sqlTimeCrosscup: TSQLQuery;
+    sqlDelete: TSQLQuery;
+    sqlNew: TSQLQuery;
+    sqlEdit: TSQLQuery;
+    sqlCategories: TSQLQuery;
+    sqlCategoriesid: TLongintField;
+    sqlCategoriesname: TMemoField;
+    sqlCategoriesused: TLongintField;
+    sqlTimesheetCategory: TLongintField;
+    sqlTimesheetComment: TMemoField;
+    sqlTimesheetdate: TMemoField;
+    sqlTimesheetid: TLongintField;
+    sqlTimesheetTask: TStringField;
+    sqlTimesheetTaskCode: TMemoField;
+    sqlTimesheetTaskDescription: TMemoField;
+    sqlTimesheetTime: TLargeintField;
+    sqlTimesheetTimeFrom:TLongintField;
+    sqlTimesheetTimeTo: TLongintField;
+    sqlTimesheetUsed: TLongintField;
+    sqlTran: TSQLTransaction;
+    sqlTimesheet: TSQLQuery;
+    procedure actNewFromSelExecute(Sender: TObject);
+    procedure actDeleteExecute(Sender: TObject);
+    procedure actEditExecute(Sender: TObject);
+    procedure actNewExecute(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
+    procedure sqlCategoriesnameGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
+    procedure sqlTimesheetAfterOpen(DataSet: TDataSet);
+    procedure sqlTimesheetdateGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
+    procedure sqlTimesheetTaskGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
+    procedure sqlTimesheetTimeGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
+    procedure sqlTimesheetTimeFromGetText(Sender: TField;
+      var aText: string; DisplayText: Boolean);
+    procedure sqlTimesheetTimeToGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
   private
     { private declarations }
   public
     { public declarations }
-    function make_msg_body_for_cur_row(): String;
+    procedure showTimesheetOnWeek(start_week: TDateTime);
+    function makeMsgBodyForCurRow: String;
     function makeMsgBodyForTimeCrosscup: String;
-  end; 
+  end;
 
 var
-  dm_main: Tdm_main;
+  dmMain: TdmMain;
 
 implementation
 
@@ -80,54 +80,54 @@ uses auxiliary, editing, timesheet_main, dialogs;
 
 {$R *.lfm}
 
-{ Tdm_main }
+{ TdmMain }
 
-procedure Tdm_main.sql_timesheetdateGetText(Sender: TField; var aText: string;
+procedure TdmMain.sqlTimesheetdateGetText(Sender: TField; var aText: string;
     DisplayText: Boolean);
 var
   curDate: TDateTime;
   strDate: String;
 begin
   try
-    curDate := StrToDate(sql_timesheetdate.AsString,date_format_str,date_separator);
+    curDate := StrToDate(sqlTimesheetdate.AsString,dbDateFormatStr,dbDateSeparator);
     aText := DateToStr(curDate);
   except
     aText := '';
   end;
 end;
 
-procedure Tdm_main.sql_timesheettaskGetText(Sender: TField; var aText: string;
+procedure TdmMain.sqlTimesheetTaskGetText(Sender: TField; var aText: string;
   DisplayText: Boolean);
 begin
-  aText := Copy(sql_timesheettask.AsString,1,255);
+  aText := Copy(sqlTimesheetTask.AsString,1,255);
 end;
 
-procedure Tdm_main.DataModuleCreate(Sender: TObject);
+procedure TdmMain.DataModuleCreate(Sender: TObject);
 begin
   DateSeparator := '.';
   ShortDateFormat := 'dd.mm.yyyy';
-  db_con.Close(True);
-  db_con.Open;
+  dbCon.Close(True);
+  dbCon.Open;
 end;
 
-procedure Tdm_main.act_newExecute(Sender: TObject);
+procedure TdmMain.actNewExecute(Sender: TObject);
 begin
-  editing_form.editing_mode := em_new;
-  editing_form.ShowModal;
+  editingForm.editingMode := emNew;
+  editingForm.ShowModal;
 end;
 
-procedure Tdm_main.act_editExecute(Sender: TObject);
+procedure TdmMain.actEditExecute(Sender: TObject);
 begin
-  editing_form.editing_mode := em_edit;
-  editing_form.ShowModal;
+  editingForm.editingMode := emEdit;
+  editingForm.ShowModal;
 end;
 
-procedure Tdm_main.act_deleteExecute(Sender: TObject);
+procedure TdmMain.actDeleteExecute(Sender: TObject);
 var
   confirm_msg: String;
 begin
   confirm_msg := 'Are you sure you want to delete this record?' + #13#10 +
-    dm_main.make_msg_body_for_cur_row();
+    dmMain.makeMsgBodyForCurRow();
 
   if MessageDlg(
       'Confirm',
@@ -138,92 +138,92 @@ begin
       mbCancel
     ) = mrYes then
   begin
-    sql_delete.ParamByName('id').Value := sql_timesheet.FieldByName('id').Value;
-    sql_timesheet.Close;
-    sql_delete.ExecSQL;
-    if sql_delete.RowsAffected = 1 then
-      sql_tran.Commit
+    sqlDelete.ParamByName('id').Value := sqlTimesheet.FieldByName('id').Value;
+    sqlTimesheet.Close;
+    sqlDelete.ExecSQL;
+    if sqlDelete.RowsAffected = 1 then
+      sqlTran.Commit
     else
-      sql_tran.Rollback;
-    sql_timesheet.Open;
+      sqlTran.Rollback;
+    sqlTimesheet.Open;
   end;
 end;
 
-procedure Tdm_main.act_new_from_selExecute(Sender: TObject);
+procedure TdmMain.actNewFromSelExecute(Sender: TObject);
 begin
-  editing_form.editing_mode := em_new_form_sel;
-  editing_form.ShowModal;
+  editingForm.editingMode := emNewFormSel;
+  editingForm.ShowModal;
 end;
 
-procedure Tdm_main.sql_categoriesnameGetText(Sender: TField; var aText: string;
+procedure TdmMain.sqlCategoriesnameGetText(Sender: TField; var aText: string;
   DisplayText: Boolean);
 begin
-  aText := sql_categoriesname.AsString;
+  aText := sqlCategoriesname.AsString;
 end;
 
-procedure Tdm_main.sql_timesheetAfterOpen(DataSet: TDataSet);
+procedure TdmMain.sqlTimesheetAfterOpen(DataSet: TDataSet);
 begin
-  timesheet_main_form.update_total_elapsed;
-  timesheet_main_form.update_select_elapsed;
+  mainForm.updateTotalElapsed;
+  mainForm.updateSelectElapsed;
 end;
 
-procedure Tdm_main.sql_timesheettimeGetText(Sender: TField; var aText: string;
+procedure TdmMain.sqlTimesheetTimeGetText(Sender: TField; var aText: string;
     DisplayText: Boolean);
 begin
-  if not sql_timesheettime.IsNull then
-    aText:= auxiliary.minutes_to_string(sql_timesheettime.Value)
+  if not sqlTimesheetTime.IsNull then
+    aText:= auxiliary.minutesToString(sqlTimesheetTime.Value)
   else
     aText := '';
 end;
 
-procedure Tdm_main.sql_timesheettime_fromGetText(Sender: TField;
+procedure TdmMain.sqlTimesheetTimeFromGetText(Sender: TField;
     var aText: string; DisplayText: Boolean);
 begin
-  if not sql_timesheettime_from.IsNull then
-    aText := auxiliary.minutes_to_string(sql_timesheettime_from.Value)
+  if not sqlTimesheetTimeFrom.IsNull then
+    aText := auxiliary.minutesToString(sqlTimesheetTimeFrom.Value)
   else
     aText := '';
 end;
 
-procedure Tdm_main.sql_timesheettime_toGetText(Sender: TField;
+procedure TdmMain.sqlTimesheetTimeToGetText(Sender: TField;
     var aText: string; DisplayText: Boolean);
 begin
-  if not sql_timesheettime_to.IsNull then
-    aText:= auxiliary.minutes_to_string(sql_timesheettime_to.Value)
+  if not sqlTimesheetTimeTo.IsNull then
+    aText:= auxiliary.minutesToString(sqlTimesheetTimeTo.Value)
   else
     aText := '';
 end;
 
-procedure Tdm_main.show_timesheet_on_week(start_week: TDateTime);
+procedure TdmMain.showTimesheetOnWeek(start_week: TDateTime);
 begin
-  sql_timesheet.Close;
-  sql_timesheet.ParamByName('datefrom').Value :=
-      FormatDateTime(date_format_str, start_week );
-  sql_timesheet.ParamByName('dateto').Value :=
-      FormatDateTime(date_format_str, start_week + (days_per_week - 1));
-  sql_timesheet.Open;
+  sqlTimesheet.Close;
+  sqlTimesheet.ParamByName('datefrom').Value :=
+      FormatDateTime(dbDateFormatStr, start_week );
+  sqlTimesheet.ParamByName('dateto').Value :=
+      FormatDateTime(dbDateFormatStr, start_week + (daysPerWeek - 1));
+  sqlTimesheet.Open;
 end;
 
-function Tdm_main.make_msg_body_for_cur_row(): String;
+function TdmMain.makeMsgBodyForCurRow(): String;
 var
   date: TDateTime;
 begin
-  with sql_timesheet do
+  with sqlTimesheet do
   begin
-    date := StrToDate(FieldByName('date').AsString, date_format_str, date_separator);
+    date := StrToDate(FieldByName('date').AsString, dbDateFormatStr, dbDateSeparator);
     Result := 'Date: ' + DateToStr(date) + #13#10 +
       'Time: from ' +
-       auxiliary.minutes_variant_to_string(FieldByName('time_from').Value, '-') +
+       auxiliary.minutesVariantToString(FieldByName('time_from').Value, '-') +
       ' to ' +
-       auxiliary.minutes_variant_to_string(FieldByName('time_to').Value, '-') +
+       auxiliary.minutesVariantToString(FieldByName('time_to').Value, '-') +
        #13#10 +
       'Task: ' + FieldByName('task').AsString + #13#10 +
       'Elapsed: ' +
-       auxiliary.minutes_variant_to_string(FieldByName('time').Value, '-');
+       auxiliary.minutesVariantToString(FieldByName('time').Value, '-');
   end;
 end;
 
-function Tdm_main.makeMsgBodyForTimeCrosscup: String;
+function TdmMain.makeMsgBodyForTimeCrosscup: String;
 begin
   Result := '';
   with sqlTimeCrosscup do
@@ -233,9 +233,9 @@ begin
     begin
       Result := Result +
         'Time: from ' +
-        auxiliary.minutes_variant_to_string(FieldByName('time_from').Value, '-') +
+        auxiliary.minutesVariantToString(FieldByName('time_from').Value, '-') +
         ' to ' +
-        auxiliary.minutes_variant_to_string(FieldByName('time_to').Value, '-') +
+        auxiliary.minutesVariantToString(FieldByName('time_to').Value, '-') +
         #13#10 +
         'Task: ' + FieldByName('task').AsString + #13#10;
       Next;

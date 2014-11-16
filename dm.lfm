@@ -1,23 +1,23 @@
-object dm_main: Tdm_main
+object dmMain: TdmMain
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 215
   HorizontalOffset = 353
   VerticalOffset = 246
   Width = 374
-  object db_con: TSQLite3Connection
+  object dbCon: TSQLite3Connection
     Connected = False
     LoginPrompt = False
     DatabaseName = 'timesheet.db'
     KeepConnection = False
-    Transaction = sql_tran
+    Transaction = sqlTran
     CharSet = 'utf-8'
     LogEvents = []
     Options = []
     left = 16
     top = 8
   end
-  object sql_timesheet: TSQLQuery
+  object sqlTimesheet: TSQLQuery
     FieldDefs = <    
       item
         Name = 'id'
@@ -85,9 +85,9 @@ object dm_main: Tdm_main
         Precision = -1
         Size = 0
       end>
-    AfterOpen = sql_timesheetAfterOpen
-    Database = db_con
-    Transaction = sql_tran
+    AfterOpen = sqlTimesheetAfterOpen
+    Database = dbCon
+    Transaction = sqlTran
     ReadOnly = True
     SQL.Strings = (
       'select'
@@ -124,7 +124,7 @@ object dm_main: Tdm_main
       end>
     left = 88
     top = 8
-    object sql_timesheetid: TLongintField
+    object sqlTimesheetid: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'id'
@@ -135,7 +135,7 @@ object dm_main: Tdm_main
       Required = False
       Visible = False
     end
-    object sql_timesheetdate: TMemoField
+    object sqlTimesheetdate: TMemoField
       DisplayLabel = 'Date'
       DisplayWidth = 10
       FieldKind = fkData
@@ -145,11 +145,11 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_timesheetdateGetText
+      OnGetText = sqlTimesheetdateGetText
       BlobType = ftBlob
       Transliterate = False
     end
-    object sql_timesheettime_from: TLongintField
+    object sqlTimesheetTimeFrom: TLongintField
       DisplayLabel = 'From'
       DisplayWidth = 5
       FieldKind = fkData
@@ -159,9 +159,9 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_timesheettime_fromGetText
+      OnGetText = sqlTimesheetTimeFromGetText
     end
-    object sql_timesheettime_to: TLongintField
+    object sqlTimesheetTimeTo: TLongintField
       DisplayLabel = 'To'
       DisplayWidth = 5
       FieldKind = fkData
@@ -171,9 +171,9 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_timesheettime_toGetText
+      OnGetText = sqlTimesheetTimeToGetText
     end
-    object sql_timesheettime: TLargeintField
+    object sqlTimesheetTime: TLargeintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'time'
@@ -182,9 +182,9 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_timesheettimeGetText
+      OnGetText = sqlTimesheetTimeGetText
     end
-    object sql_timesheettask: TStringField
+    object sqlTimesheetTask: TStringField
       DisplayLabel = 'Task'
       DisplayWidth = 50
       FieldKind = fkData
@@ -194,10 +194,10 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_timesheettaskGetText
+      OnGetText = sqlTimesheetTaskGetText
       Size = 255
     end
-    object sql_timesheettask_code: TMemoField
+    object sqlTimesheetTaskCode: TMemoField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'task_code'
@@ -210,7 +210,7 @@ object dm_main: Tdm_main
       BlobType = ftBlob
       Transliterate = False
     end
-    object sql_timesheettask_description: TMemoField
+    object sqlTimesheetTaskDescription: TMemoField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'task_description'
@@ -223,7 +223,7 @@ object dm_main: Tdm_main
       BlobType = ftBlob
       Transliterate = False
     end
-    object sql_timesheetcomment: TMemoField
+    object sqlTimesheetComment: TMemoField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'comment'
@@ -236,7 +236,7 @@ object dm_main: Tdm_main
       BlobType = ftBlob
       Transliterate = False
     end
-    object sql_timesheetcategory: TLongintField
+    object sqlTimesheetCategory: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'category'
@@ -247,7 +247,7 @@ object dm_main: Tdm_main
       Required = False
       Visible = False
     end
-    object sql_timesheetused: TLongintField
+    object sqlTimesheetUsed: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'used'
@@ -259,14 +259,14 @@ object dm_main: Tdm_main
       Visible = False
     end
   end
-  object sql_tran: TSQLTransaction
+  object sqlTran: TSQLTransaction
     Active = False
     Action = caNone
-    Database = db_con
+    Database = dbCon
     left = 15
     top = 72
   end
-  object sql_categories: TSQLQuery
+  object sqlCategories: TSQLQuery
     FieldDefs = <    
       item
         Name = 'id'
@@ -286,8 +286,8 @@ object dm_main: Tdm_main
         Precision = -1
         Size = 0
       end>
-    Database = db_con
-    Transaction = sql_tran
+    Database = dbCon
+    Transaction = sqlTran
     ReadOnly = True
     SQL.Strings = (
       'select * from categories'
@@ -296,7 +296,7 @@ object dm_main: Tdm_main
     Params = <>
     left = 192
     top = 8
-    object sql_categoriesid: TLongintField
+    object sqlCategoriesid: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'id'
@@ -306,7 +306,7 @@ object dm_main: Tdm_main
       ReadOnly = False
       Required = False
     end
-    object sql_categoriesname: TMemoField
+    object sqlCategoriesname: TMemoField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'name'
@@ -315,11 +315,11 @@ object dm_main: Tdm_main
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      OnGetText = sql_categoriesnameGetText
+      OnGetText = sqlCategoriesnameGetText
       BlobType = ftBlob
       Transliterate = False
     end
-    object sql_categoriesused: TLongintField
+    object sqlCategoriesused: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
       FieldName = 'used'
@@ -330,10 +330,10 @@ object dm_main: Tdm_main
       Required = False
     end
   end
-  object sql_new: TSQLQuery
+  object sqlNew: TSQLQuery
     FieldDefs = <>
-    Database = db_con
-    Transaction = sql_tran
+    Database = dbCon
+    Transaction = sqlTran
     SQL.Strings = (
       'insert into timesheet('
       '  date,'
@@ -397,10 +397,10 @@ object dm_main: Tdm_main
     left = 88
     top = 72
   end
-  object sql_edit: TSQLQuery
+  object sqlEdit: TSQLQuery
     FieldDefs = <>
-    Database = db_con
-    Transaction = sql_tran
+    Database = dbCon
+    Transaction = sqlTran
     SQL.Strings = (
       'update timesheet set'
       '  date = :date,'
@@ -456,10 +456,10 @@ object dm_main: Tdm_main
     left = 152
     top = 72
   end
-  object sql_delete: TSQLQuery
+  object sqlDelete: TSQLQuery
     FieldDefs = <>
-    Database = db_con
-    Transaction = sql_tran
+    Database = dbCon
+    Transaction = sqlTran
     SQL.Strings = (
       'delete from timesheet'
       'where id = :id'
@@ -477,25 +477,25 @@ object dm_main: Tdm_main
     Images = images
     left = 16
     top = 136
-    object act_new: TAction
+    object actNew: TAction
       Caption = 'New'
       ImageIndex = 0
-      OnExecute = act_newExecute
+      OnExecute = actNewExecute
     end
-    object act_edit: TAction
+    object actEdit: TAction
       Caption = 'Edit'
       ImageIndex = 1
-      OnExecute = act_editExecute
+      OnExecute = actEditExecute
     end
-    object act_delete: TAction
+    object actDelete: TAction
       Caption = 'Delete'
       ImageIndex = 2
-      OnExecute = act_deleteExecute
+      OnExecute = actDeleteExecute
     end
-    object act_new_from_sel: TAction
+    object actNewFromSel: TAction
       Caption = 'act_new_from_sel'
       ImageIndex = 3
-      OnExecute = act_new_from_selExecute
+      OnExecute = actNewFromSelExecute
     end
   end
   object images: TImageList
@@ -797,8 +797,8 @@ object dm_main: Tdm_main
   end
   object sqlTimeCrosscup: TSQLQuery
     FieldDefs = <>
-    Database = db_con
-    Transaction = sql_tran
+    Database = dbCon
+    Transaction = sqlTran
     SQL.Strings = (
       'select'
       '*,'

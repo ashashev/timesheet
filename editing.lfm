@@ -1,9 +1,9 @@
-object editing_form: Tediting_form
-  Left = 390
+object editingForm: TeditingForm
+  Left = 397
   Height = 250
-  Top = 290
+  Top = 268
   Width = 560
-  Caption = 'editing_form'
+  Caption = 'editingForm'
   ClientHeight = 250
   ClientWidth = 560
   Constraints.MinHeight = 250
@@ -35,7 +35,7 @@ object editing_form: Tediting_form
       ClientHeight = 35
       ClientWidth = 150
       TabOrder = 0
-      object e_date: TDateEdit
+      object eDate: TDateEdit
         Left = 0
         Height = 35
         Top = 0
@@ -143,7 +143,7 @@ object editing_form: Tediting_form
     ClientHeight = 35
     ClientWidth = 540
     TabOrder = 5
-    object btn_ok: TBitBtn
+    object btnOk: TBitBtn
       Left = 340
       Height = 35
       Top = 0
@@ -153,10 +153,10 @@ object editing_form: Tediting_form
       DefaultCaption = True
       Kind = bkOK
       ModalResult = 1
-      OnClick = btn_okClick
+      OnClick = btnOkClick
       TabOrder = 0
     end
-    object btn_cancel: TBitBtn
+    object btnCancel: TBitBtn
       Left = 440
       Height = 35
       Top = 0
@@ -192,21 +192,22 @@ object editing_form: Tediting_form
       Caption = 'Category: '
       ParentColor = False
     end
-    object e_category: TDBLookupComboBox
+    object eCategory: TDBLookupComboBox
       Left = 70
       Height = 35
       Top = 0
       Width = 202
       Align = alLeft
+      DataSource = dsCategories
       KeyField = 'id'
       ListField = 'name'
       ListFieldIndex = 0
-      ListSource = ds_categories
+      ListSource = dsCategories
       LookupCache = False
-      OnChange = e_categoryChange
+      OnChange = eCategoryChange
       TabOrder = 0
     end
-    object e_to: TMaskEdit
+    object eTo: TMaskEdit
       Left = 483
       Height = 35
       Top = 0
@@ -215,7 +216,7 @@ object editing_form: Tediting_form
       CharCase = ecNormal
       MaxLength = 5
       TabOrder = 2
-      OnEditingDone = e_toEditingDone
+      OnEditingDone = eToEditingDone
       EditMask = '##:##;1;_'
       Text = '  :  '
       SpaceChar = '_'
@@ -230,7 +231,7 @@ object editing_form: Tediting_form
       Caption = ' to '
       ParentColor = False
     end
-    object e_from: TMaskEdit
+    object eFrom: TMaskEdit
       Left = 406
       Height = 35
       Top = 0
@@ -239,7 +240,7 @@ object editing_form: Tediting_form
       CharCase = ecNormal
       MaxLength = 5
       TabOrder = 1
-      OnEditingDone = e_fromEditingDone
+      OnEditingDone = eFromEditingDone
       EditMask = '##:##;1;_'
       Text = '  :  '
       SpaceChar = '_'
@@ -289,14 +290,14 @@ object editing_form: Tediting_form
       Caption = 'Code:'
       ParentColor = False
     end
-    object e_code: TEdit
+    object eCode: TEdit
       Left = 70
       Height = 30
       Top = 0
       Width = 470
       Align = alClient
       TabOrder = 0
-      Text = 'e_code'
+      Text = 'eCode'
     end
   end
   object Panel5: TPanel
@@ -322,14 +323,14 @@ object editing_form: Tediting_form
       Caption = 'Task'
       ParentColor = False
     end
-    object e_task: TEdit
+    object eTask: TEdit
       Left = 70
       Height = 30
       Top = 0
       Width = 470
       Align = alClient
       TabOrder = 0
-      Text = 'e_task'
+      Text = 'eTask'
     end
   end
   object Panel6: TPanel
@@ -355,18 +356,18 @@ object editing_form: Tediting_form
       Caption = 'Comment:'
       ParentColor = False
     end
-    object e_comment: TEdit
+    object eComment: TEdit
       Left = 70
       Height = 30
       Top = 0
       Width = 470
       Align = alClient
       TabOrder = 0
-      Text = 'e_comment'
+      Text = 'eComment'
     end
   end
-  object ds_categories: TDataSource
-    DataSet = dm_main.sql_categories
+  object dsCategories: TDataSource
+    DataSet = dmMain.sqlCategories
     left = 184
     top = 8
   end

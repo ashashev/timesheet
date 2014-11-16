@@ -11,22 +11,22 @@ uses
 
 type
 
-  { Ttimesheet_main_form }
+  { TmainForm }
 
-  Ttimesheet_main_form = class(TForm)
-    cur_date: TDateEdit;
-    ds_timesheet: TDataSource;
+  TmainForm = class(TForm)
+    curDate: TDateEdit;
+    dsTimesheet: TDataSource;
     grid: TDBGrid;
-    Panel1: TPanel;
+    panel1: TPanel;
     status: TStatusBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
-    tool_bar: TToolBar;
-    procedure cur_dateChange(Sender: TObject);
-    procedure cur_dateEditingDone(Sender: TObject);
+    toolButton1: TToolButton;
+    toolButton2: TToolButton;
+    toolButton3: TToolButton;
+    toolButton4: TToolButton;
+    toolButton5: TToolButton;
+    toolBar: TToolBar;
+    procedure curDateChange(Sender: TObject);
+    procedure curDateEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure gridCellClick(Column: TColumn);
@@ -34,68 +34,68 @@ type
   private
     { private declarations }
     notCallUpdateDate: Boolean;
-    procedure update_date;
+    procedure updateDate;
   public
     { public declarations }
-    procedure update_total_elapsed;
-    procedure update_select_elapsed;
+    procedure updateTotalElapsed;
+    procedure updateSelectElapsed;
   end;
 
 var
-  timesheet_main_form: Ttimesheet_main_form;
+  mainForm: TmainForm;
 
 implementation
 
 uses auxiliary, dateutils;
 
 const
-  panel_week = 1;
-  panel_total_elapsed = 3;
-  panel_select_elapsed = 5;
+  panelWeek = 1;
+  panelTotalElapsed = 3;
+  panelSelectElapsed = 5;
 
 {$R *.lfm}
 
-{ Ttimesheet_main_form }
+{ TmainForm }
 
 
-procedure Ttimesheet_main_form.cur_dateChange(Sender: TObject);
+procedure TmainForm.curDateChange(Sender: TObject);
 begin
-  if (not notCallUpdateDate) and (not cur_date.Focused) then
-    update_date;
+  if (not notCallUpdateDate) and (not curDate.Focused) then
+    updateDate;
 end;
 
-procedure Ttimesheet_main_form.cur_dateEditingDone(Sender: TObject);
+procedure TmainForm.curDateEditingDone(Sender: TObject);
 begin
   if not notCallUpdateDate then
-    update_date;
+    updateDate;
 end;
 
-procedure Ttimesheet_main_form.FormCreate(Sender: TObject);
+procedure TmainForm.FormCreate(Sender: TObject);
 begin
   Caption := 'Timesheet';
-  cur_date.Button.Flat := True;
+  curDate.Button.Flat := True;
   notCallUpdateDate := True;
-  cur_date.Date := Now;
+  curDate.Date := Now;
 end;
 
-procedure Ttimesheet_main_form.FormShow(Sender: TObject);
+procedure TmainForm.FormShow(Sender: TObject);
 begin
   notCallUpdateDate:=False;;
-  update_date;
+  updateDate;
 end;
 
-procedure Ttimesheet_main_form.gridCellClick(Column: TColumn);
+procedure TmainForm.gridCellClick(Column: TColumn);
 begin
-  update_select_elapsed;
+  updateSelectElapsed;
 end;
 
-procedure Ttimesheet_main_form.gridKeyUp(Sender: TObject; var Key: Word;
+procedure TmainForm.gridKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  update_select_elapsed;
+  updateSelectElapsed;
 end;
 
-procedure Ttimesheet_main_form.update_date;
+procedure TmainForm.updateDate;
 var
   curday: Integer;
   newDate: TDateTime;
@@ -103,22 +103,22 @@ begin
   Assert(not notCallUpdateDate, 'Flag notCallUpdateDate was set.');
 
   notCallUpdateDate := True;
-  with cur_date do
+  with curDate do
   begin
     curday := DayOfWeek(Date);
 
     if curday = sunday then
-      Date := Date - (days_per_week - 1)
+      Date := Date - (daysPerWeek - 1)
     else
       Date := Date - (curday - monday);
 
-    dm_main.show_timesheet_on_week(Date);
-    status.Panels.Items[panel_week].Text := IntToStr(WeekOf(Date));
+    dmMain.showTimesheetOnWeek(Date);
+    status.Panels.Items[panelWeek].Text := IntToStr(WeekOf(Date));
   end;
   notCallUpdateDate := False;
 end;
 
-procedure Ttimesheet_main_form.update_total_elapsed;
+procedure TmainForm.updateTotalElapsed;
 var
   bookmark: TBookmark;
   elapsed: Longint;
@@ -138,14 +138,14 @@ begin
         elapsed := elapsed + FieldByName('time').AsInteger;
       Next;
     end;
-    status.Panels.Items[panel_total_elapsed].Text := auxiliary.minutes_to_string(elapsed);
+    status.Panels.Items[panelTotalElapsed].Text := auxiliary.minutesToString(elapsed);
   end;
   grid.DataSource.DataSet.GotoBookmark(bookmark);
   grid.DataSource.DataSet.FreeBookmark(bookmark);
   grid.DataSource.DataSet.EnableControls;
 end;
 
-procedure Ttimesheet_main_form.update_select_elapsed;
+procedure TmainForm.updateSelectElapsed;
 var
   i: Integer;
   bookmark: TBookmark;
@@ -169,7 +169,7 @@ begin
   grid.DataSource.DataSet.GotoBookmark(bookmark);
   grid.DataSource.DataSet.FreeBookmark(bookmark);
   grid.DataSource.DataSet.EnableControls;
-  status.Panels.Items[panel_select_elapsed].Text := auxiliary.minutes_to_string(elapsed);
+  status.Panels.Items[panelSelectElapsed].Text := auxiliary.minutesToString(elapsed);
 end;
 
 end.

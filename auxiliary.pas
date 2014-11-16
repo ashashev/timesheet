@@ -8,28 +8,28 @@ uses
   Classes, SysUtils;
 
 const
-  days_per_week = 7;
+  daysPerWeek = 7;
   sunday = 1;
   monday = 2;
-  empty_time_str = '  :  ';
-  error_str_time_must_be = 'Hours must be less 24, minutes must be less 60, time must be less 24:00';
+  emptyTimeStr = '  :  ';
+  errorStrTimeMustBe = 'Hours must be less 24, minutes must be less 60, time must be less 24:00';
 
-function minutes_to_string( minutes: Longint ): String;
-function string_to_minutes( s_time: String ): Longint;
-function string_to_minutes_variant( s_time: String ): Variant;
-function minutes_variant_to_string( minutes: Variant; str_null: String = '' ): String;
-function validate_time_string( s_time: String ): Boolean;
+function minutesToString( minutes: Longint ): String;
+function stringToMinutes( strTime: String ): Longint;
+function stringToMinutesVariant( strTime: String ): Variant;
+function minutesVariantToString( minutes: Variant; strNull: String = '' ): String;
+function validateTimeString( strTime: String ): Boolean;
 
 implementation
-  const min_per_hour = 60;
+  const minPerHour = 60;
 
-function minutes_to_string(minutes: Longint): String;
+function minutesToString(minutes: Longint): String;
 var
   hours: Longint;
   mins: Longint;
 begin
-  hours := abs(minutes) div min_per_hour;
-  mins := abs(minutes) mod min_per_hour;
+  hours := abs(minutes) div minPerHour;
+  mins := abs(minutes) mod minPerHour;
   if minutes < 0 then
     Result := '-'
   else
@@ -42,42 +42,42 @@ begin
   Result := Result + IntToStr(mins);
 end;
 
-function string_to_minutes( s_time: String ): Longint;
+function stringToMinutes( strTime: String ): Longint;
 var
   hours, minutes: Integer;
 begin
-  s_time := StringReplace( s_time, ' ', '0', [rfReplaceAll] );
-  hours := StrToInt( Copy( s_time, 1, 2 ) );
-  minutes := StrToInt( Copy( s_time, 4, 2 ) );
-  Result := hours * min_per_hour + minutes;
+  strTime := StringReplace( strTime, ' ', '0', [rfReplaceAll] );
+  hours := StrToInt( Copy( strTime, 1, 2 ) );
+  minutes := StrToInt( Copy( strTime, 4, 2 ) );
+  Result := hours * minPerHour + minutes;
 end;
 
-function string_to_minutes_variant( s_time: String ): Variant;
+function stringToMinutesVariant( strTime: String ): Variant;
 begin
-  if (s_time <> empty_time_str) and (s_time <> '') then
-    Result := string_to_minutes( s_time )
+  if (strTime <> emptyTimeStr) and (strTime <> '') then
+    Result := stringToMinutes( strTime )
   else
     Result := Null;
 end;
 
-function minutes_variant_to_string( minutes: Variant; str_null: String = ''  ): String;
+function minutesVariantToString( minutes: Variant; strNull: String = '' ): String;
 begin
   if minutes <> Null then
-    Result := minutes_to_string( minutes )
+    Result := minutesToString( minutes )
   else
-    Result := str_null;
+    Result := strNull;
 end;
 
-function validate_time_string( s_time: String ): Boolean;
+function validateTimeString( strTime: String ): Boolean;
 var
   hours, minutes: Integer;
 begin
   Result := true;
-  if (s_time <> empty_time_str) and (s_time <> '') then
+  if (strTime <> emptyTimeStr) and (strTime <> '') then
   begin
-    s_time := StringReplace( s_time, ' ', '0', [rfReplaceAll] );
-    hours := StrToInt( Copy( s_time, 1, 2 ) );
-    minutes := StrToInt( Copy( s_time, 4, 2 ) );
+    strTime := StringReplace( strTime, ' ', '0', [rfReplaceAll] );
+    hours := StrToInt( Copy( strTime, 1, 2 ) );
+    minutes := StrToInt( Copy( strTime, 4, 2 ) );
     if (hours > 24) or (minutes > 59) or ((hours = 24) and (minutes <> 0)) then
       Result := false;
   end;
