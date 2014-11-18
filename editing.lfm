@@ -198,7 +198,6 @@ object editingForm: TeditingForm
       Top = 0
       Width = 202
       Align = alLeft
-      DataSource = dsCategories
       KeyField = 'id'
       ListField = 'name'
       ListFieldIndex = 0
