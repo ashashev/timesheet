@@ -80,14 +80,14 @@ object mainForm: TmainForm
       Action = dmMain.actDelete
     end
     object toolButton4: TToolButton
-      Left = 129
+      Left = 171
       Top = 2
       Width = 10
       Caption = 'toolButton4'
       Style = tbsSeparator
     end
     object panel1: TPanel
-      Left = 139
+      Left = 181
       Height = 32
       Top = 2
       Width = 154
@@ -196,6 +196,20 @@ object mainForm: TmainForm
       Left = 97
       Top = 2
       Action = dmMain.actNewFromSel
+      Caption = 'New Base On Selected'
+    end
+    object ToolButton6: TToolButton
+      Left = 139
+      Top = 2
+      Action = dmMain.actShowWeekReport
+      Caption = 'Show Week Report'
+    end
+    object ToolButton7: TToolButton
+      Left = 129
+      Top = 2
+      Width = 10
+      Caption = 'ToolButton7'
+      Style = tbsSeparator
     end
   end
   object dsTimesheet: TDataSource

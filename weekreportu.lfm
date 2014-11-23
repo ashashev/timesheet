@@ -1,0 +1,77 @@
+object weekReport: TweekReport
+  Left = 291
+  Height = 482
+  Top = 162
+  Width = 777
+  Caption = 'Report week'
+  ClientHeight = 482
+  ClientWidth = 777
+  LCLVersion = '1.2.6.0'
+  object Panel1: TPanel
+    Left = 5
+    Height = 32
+    Top = 0
+    Width = 772
+    Align = alTop
+    BorderSpacing.Left = 5
+    BevelOuter = bvNone
+    ClientHeight = 32
+    ClientWidth = 772
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 0
+      Height = 32
+      Top = 0
+      Width = 38
+      Align = alLeft
+      Caption = 'from '
+      ParentColor = False
+    end
+    object lblFrom: TLabel
+      Left = 38
+      Height = 32
+      Top = 0
+      Width = 56
+      Align = alLeft
+      Caption = 'lblFrom'
+      ParentColor = False
+      OnClick = lblFromClick
+    end
+    object Label2: TLabel
+      Left = 94
+      Height = 32
+      Top = 0
+      Width = 23
+      Align = alLeft
+      Caption = ' to '
+      ParentColor = False
+    end
+    object lblTo: TLabel
+      Left = 117
+      Height = 32
+      Top = 0
+      Width = 37
+      Align = alLeft
+      Caption = 'lblTo'
+      ParentColor = False
+    end
+  end
+  object griid: TDBGrid
+    Left = 0
+    Height = 450
+    Top = 32
+    Width = 777
+    Align = alClient
+    Color = clWindow
+    Columns = <>
+    DataSource = dsWeekReport
+    TabOrder = 1
+  end
+  object dsWeekReport: TDataSource
+    DataSet = dmMain.sqlWeekReport
+    left = 141
+    top = 98
+  end
+end

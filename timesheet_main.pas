@@ -25,6 +25,8 @@ type
     toolButton4: TToolButton;
     toolButton5: TToolButton;
     toolBar: TToolBar;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
     procedure curDateChange(Sender: TObject);
     procedure curDateEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);

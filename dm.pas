@@ -16,6 +16,7 @@ type
   { TdmMain }
 
   TdmMain = class(TDataModule)
+    actShowWeekReport: TAction;
     actNewFromSel: TAction;
     actions: TActionList;
     actDelete: TAction;
@@ -23,6 +24,7 @@ type
     actNew: TAction;
     dbCon: TSQLite3Connection;
     images: TImageList;
+    sqlWeekReport: TSQLQuery;
     sqlTimeCrosscup: TSQLQuery;
     sqlDelete: TSQLQuery;
     sqlNew: TSQLQuery;
@@ -44,10 +46,14 @@ type
     sqlTimesheetUsed: TLongintField;
     sqlTran: TSQLTransaction;
     sqlTimesheet: TSQLQuery;
+    sqlWeekReportmonth: TStringField;
+    sqlWeekReporttask: TStringField;
+    sqlWeekReporttime: TLargeintField;
     procedure actNewFromSelExecute(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
+    procedure actShowWeekReportExecute(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure sqlCategoriesnameGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
@@ -62,11 +68,16 @@ type
       var aText: string; DisplayText: Boolean);
     procedure sqlTimesheetTimeToGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
+    procedure sqlWeekReportmonthGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
+    procedure sqlWeekReporttimeGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
   private
     { private declarations }
   public
     { public declarations }
-    procedure showTimesheetOnWeek(start_week: TDateTime);
+    procedure showTimesheetOnWeek(startWeek: TDateTime);
+    procedure showWeekReport(startWeek: TDateTime);
     function makeMsgBodyForCurRow: String;
     function makeMsgBodyForTimeCrosscup: String;
   end;
@@ -76,7 +87,7 @@ var
 
 implementation
 
-uses auxiliary, editing, timesheet_main, dialogs;
+uses auxiliary, editing, timesheet_main, dialogs, weekreportu;
 
 {$R *.lfm}
 
@@ -114,6 +125,11 @@ procedure TdmMain.actNewExecute(Sender: TObject);
 begin
   editingForm.editingMode := emNew;
   editingForm.ShowModal;
+end;
+
+procedure TdmMain.actShowWeekReportExecute(Sender: TObject);
+begin
+  showWeekReport(mainForm.curDate.Date);
 end;
 
 procedure TdmMain.actEditExecute(Sender: TObject);
@@ -194,14 +210,48 @@ begin
     aText := '';
 end;
 
-procedure TdmMain.showTimesheetOnWeek(start_week: TDateTime);
+procedure TdmMain.sqlWeekReportmonthGetText(Sender: TField; var aText: string;
+  DisplayText: Boolean);
+begin
+  if not sqlWeekReportMonth.IsNull then
+    aText := FormatDateTime('mmm',StrToDate(sqlWeekReportMonth.Value,'m'))
+  else
+    aText := '';
+end;
+
+procedure TdmMain.sqlWeekReporttimeGetText(Sender: TField; var aText: string;
+  DisplayText: Boolean);
+begin
+  if not sqlWeekReportTime.IsNull then
+    aText:= auxiliary.minutesToString(sqlWeekReportTime.Value)
+  else
+    aText := '';
+end;
+
+procedure TdmMain.showTimesheetOnWeek(startWeek: TDateTime);
 begin
   sqlTimesheet.Close;
   sqlTimesheet.ParamByName('datefrom').Value :=
-      FormatDateTime(dbDateFormatStr, start_week );
+      FormatDateTime(dbDateFormatStr, startWeek );
   sqlTimesheet.ParamByName('dateto').Value :=
-      FormatDateTime(dbDateFormatStr, start_week + (daysPerWeek - 1));
+      FormatDateTime(dbDateFormatStr, startWeek + (daysPerWeek - 1));
   sqlTimesheet.Open;
+end;
+
+procedure TdmMain.showWeekReport(startWeek: TDateTime);
+begin
+  with sqlWeekReport do
+  begin
+    Close;
+    ParamByName('datefrom').Value :=
+        FormatDateTime(dbDateFormatStr, startWeek );
+    ParamByName('dateto').Value :=
+        FormatDateTime(dbDateFormatStr, startWeek + (daysPerWeek - 1));
+    Open;
+    weekReport.lblFrom.Caption := DateToStr(startWeek);
+    weekReport.lblTo.Caption   := DateToStr(startWeek + (daysPerWeek - 1));
+    weekReport.ShowModal;
+  end;
 end;
 
 function TdmMain.makeMsgBodyForCurRow(): String;
