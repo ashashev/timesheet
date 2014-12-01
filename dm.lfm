@@ -911,7 +911,6 @@ object dmMain: TdmMain
     top = 136
   end
   object sqlWeekReport: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = 'month'
@@ -935,7 +934,7 @@ object dmMain: TdmMain
     Transaction = sqlTran
     SQL.Strings = (
       'select'
-      '  strftime(''%m'',date(ts.date)) as month,'
+      '  strftime(''%Y-%m-01'',date(ts.date)) as month,'
       '  ts.task_code || '' '' || ts.task_description task,'
       '  sum(ifnull(ts.time_to - ts.time_from,0)) as time'
       'from timesheet ts'

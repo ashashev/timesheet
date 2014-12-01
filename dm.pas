@@ -214,7 +214,14 @@ procedure TdmMain.sqlWeekReportmonthGetText(Sender: TField; var aText: string;
   DisplayText: Boolean);
 begin
   if not sqlWeekReportMonth.IsNull then
-    aText := FormatDateTime('mmm',StrToDate(sqlWeekReportMonth.Value,'m'))
+    aText := SysToUTF8( FormatDateTime(
+           'mmm',
+           StrToDate(
+             sqlWeekReportMonth.Value,
+             dbDateFormatStr,
+             dbDateSeparator
+             )
+           ))
   else
     aText := '';
 end;
