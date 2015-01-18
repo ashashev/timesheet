@@ -5,9 +5,10 @@ unit dm;
 interface
 
 uses
-  Classes, SysUtils, sqlite3conn, sqldb, db, FileUtil, ActnList, Controls;
+  Classes, SysUtils, sqlite3conn, sqldb, db, FileUtil, ActnList, Controls, config;
 
 const
+  IniFileName     = 'timesheet.ini';
   dbDateFormatStr = 'yyyy-mm-dd';
   dbDateSeparator = '-';
 
@@ -55,6 +56,7 @@ type
     procedure actNewExecute(Sender: TObject);
     procedure actShowWeekReportExecute(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
     procedure sqlCategoriesnameGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
     procedure sqlTimesheetAfterOpen(DataSet: TDataSet);
@@ -74,6 +76,7 @@ type
       DisplayText: Boolean);
   private
     { private declarations }
+    cfg: TConfig;
   public
     { public declarations }
     procedure showTimesheetOnWeek(startWeek: TDateTime);
@@ -115,10 +118,17 @@ end;
 
 procedure TdmMain.DataModuleCreate(Sender: TObject);
 begin
+  cfg := TConfig.Create(IniFileName);
   DateSeparator := '.';
   ShortDateFormat := 'dd.mm.yyyy';
   dbCon.Close(True);
+  dbCon.DatabaseName := cfg.DbPath;
   dbCon.Open;
+end;
+
+procedure TdmMain.DataModuleDestroy(Sender: TObject);
+begin
+  FreeAndNil(cfg);
 end;
 
 procedure TdmMain.actNewExecute(Sender: TObject);

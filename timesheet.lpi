@@ -113,7 +113,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="timesheet.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -156,6 +156,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="weekreportu"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="config.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="config"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
