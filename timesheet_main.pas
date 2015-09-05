@@ -58,6 +58,39 @@ const
 
 {$R *.lfm}
 
+function CalcColorForCurrentRow(selected: Boolean): TColor;
+var
+  data: TDataSet;
+  isBreak: Boolean;
+  timeIsCorrect: Boolean;
+begin
+  Result := clNone;
+  data := mainForm.grid.DataSource.DataSet;
+  if StrToDate(data.FieldByName('date').AsString,
+               dm.dbDateFormatStr,
+               dm.dbDateSeparator) < mainForm.curDate.Date then
+  begin
+    Result := clSilver;
+  end
+  else
+  begin
+    if not selected then
+    begin
+
+      isBreak := data.FieldByName('used').IsNull
+                 or (data.FieldByName('used').AsInteger = 0);
+      timeIsCorrect := (not data.FieldByName('time').IsNull)
+                       and (data.FieldByName('time').AsInteger > 0);
+
+      if isBreak then
+        Result := clTeal
+      else if not timeIsCorrect then
+        Result := clRed;
+
+    end;
+  end;
+end;
+
 { TmainForm }
 
 
@@ -94,23 +127,13 @@ end;
 
 procedure TmainForm.gridDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  wish: TColor;
 begin
-  if not (gdSelected in State) then
-  begin
-    with grid.DataSource.DataSet do
-    begin
-      if FieldByName('used').IsNull
-         or (FieldByName('used').AsInteger = 0) then
-      begin
-        grid.Canvas.Font.Color := clGray;
-      end
-      else if FieldByName('time').IsNull
-              or (FieldByName('time').AsInteger = 0) then
-      begin
-        grid.Canvas.Font.Color := clRed;
-      end;
-    end;
-  end;
+  wish := CalcColorForCurrentRow(gdSelected in State);
+  if clNone <> wish then
+    grid.Canvas.Font.Color := wish;
+  grid.Canvas.FillRect(Rect);
   grid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
@@ -155,7 +178,10 @@ begin
     elapsed := 0;
     while not EOF do
     begin
-      if (not FieldByName('used').IsNull) and
+      if (StrToDate(FieldByName('date').AsString,
+                    dm.dbDateFormatStr,
+                    dm.dbDateSeparator) >= curDate.Date) and
+         (not FieldByName('used').IsNull) and
          (FieldByName('used').AsInteger <> 0) and
          (not FieldByName('time').IsNull) and
          (FieldByName('time').AsInteger > 0) then

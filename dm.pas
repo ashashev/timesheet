@@ -248,7 +248,7 @@ procedure TdmMain.showTimesheetOnWeek(startWeek: TDateTime);
 begin
   sqlTimesheet.Close;
   sqlTimesheet.ParamByName('datefrom').Value :=
-      FormatDateTime(dbDateFormatStr, startWeek );
+      FormatDateTime(dbDateFormatStr, startWeek - daysPerWeek);
   sqlTimesheet.ParamByName('dateto').Value :=
       FormatDateTime(dbDateFormatStr, startWeek + (daysPerWeek - 1));
   sqlTimesheet.Open;
