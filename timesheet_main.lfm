@@ -23,6 +23,7 @@ object mainForm: TmainForm
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect]
     TabOrder = 0
     OnCellClick = gridCellClick
+    OnDrawColumnCell = gridDrawColumnCell
     OnKeyUp = gridKeyUp
   end
   object status: TStatusBar

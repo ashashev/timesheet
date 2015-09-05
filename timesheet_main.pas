@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqlite3conn, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db;
+  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db, Grids;
 
 type
 
@@ -31,6 +31,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure gridCellClick({%H-}Column: TColumn);
+    procedure gridDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure gridKeyUp(Sender: TObject; var {%H-}Key: Word; {%H-}Shift: TShiftState);
   private
     { private declarations }
@@ -88,6 +90,28 @@ end;
 procedure TmainForm.gridCellClick(Column: TColumn);
 begin
   updateSelectElapsed;
+end;
+
+procedure TmainForm.gridDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if not (gdSelected in State) then
+  begin
+    with grid.DataSource.DataSet do
+    begin
+      if FieldByName('used').IsNull
+         or (FieldByName('used').AsInteger = 0) then
+      begin
+        grid.Canvas.Font.Color := clGray;
+      end
+      else if FieldByName('time').IsNull
+              or (FieldByName('time').AsInteger = 0) then
+      begin
+        grid.Canvas.Font.Color := clRed;
+      end;
+    end;
+  end;
+  grid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 procedure TmainForm.gridKeyUp(Sender: TObject; var Key: Word;
