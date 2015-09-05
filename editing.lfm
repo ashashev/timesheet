@@ -10,7 +10,7 @@ object editingForm: TeditingForm
   Constraints.MinWidth = 560
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.2.6.0'
+  LCLVersion = '1.4.2.0'
   object Panel1: TPanel
     Left = 10
     Height = 35
@@ -47,7 +47,6 @@ object editingForm: TeditingForm
         DateOrder = doNone
         ButtonWidth = 35
         Align = alLeft
-        CharCase = ecNormal
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000000000FC0000
@@ -128,6 +127,16 @@ object editingForm: TeditingForm
         MaxLength = 0
         TabOrder = 0
       end
+    end
+    object cbUseCurDate: TCheckBox
+      Left = 264
+      Height = 35
+      Top = 0
+      Width = 126
+      Align = alRight
+      Caption = 'Use Current Date'
+      OnChange = cbUseCurDateChange
+      TabOrder = 1
     end
   end
   object Panel2: TPanel
@@ -245,17 +254,17 @@ object editingForm: TeditingForm
       SpaceChar = '_'
     end
     object Label5: TLabel
-      Left = 374
+      Left = 373
       Height = 30
       Top = 5
-      Width = 32
+      Width = 33
       Align = alRight
       BorderSpacing.Top = 5
       Caption = 'from '
       ParentColor = False
     end
     object Label7: TLabel
-      Left = 324
+      Left = 323
       Height = 30
       Top = 5
       Width = 50

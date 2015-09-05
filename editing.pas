@@ -17,6 +17,7 @@ type
   TeditingForm = class(TForm)
     btnOk: TBitBtn;
     btnCancel: TBitBtn;
+    cbUseCurDate: TCheckBox;
     eDate: TDateEdit;
     dsCategories: TDataSource;
     eCategory: TDBLookupComboBox;
@@ -40,6 +41,7 @@ type
     Panel6: TPanel;
     Panel7: TPanel;
     procedure btnOkClick(Sender: TObject);
+    procedure cbUseCurDateChange(Sender: TObject);
     procedure eCategoryChange(Sender: TObject);
     procedure eFromEditingDone(Sender: TObject);
     procedure eToEditingDone(Sender: TObject);
@@ -48,10 +50,13 @@ type
   private
     { private declarations }
     fEditingMode: EditingMode;
+    useCurDate: Boolean;
 
     function validate_time( obj: TMaskEdit ): Boolean;
     function validate_time(): Boolean;
+    function getDate(): TDateTime;
     procedure fill_query_params(query: TSQLQuery);
+    procedure updateAvailableEDate;
   public
     { public declarations }
     property editingMode: EditingMode read fEditingMode write fEditingMode;
@@ -73,6 +78,7 @@ begin
   fEditingMode := emNew;
   eDate.Button.Flat := true;
   eDate.Date := Now;
+  useCurDate := true;
 end;
 
 procedure TeditingForm.FormShow(Sender: TObject);
@@ -87,36 +93,41 @@ begin
   with dmMain.sqlTimesheet do
   begin
     case fEditingMode of
-    emNew, emNewFormSel: begin
-      Caption := 'New Task';
-      if fEditingMode = emNewFormSel then
-      begin
+      emNew, emNewFormSel: begin
+        Caption := 'New Task';
+        cbUseCurDate.Enabled := true;
+        cbUseCurDate.Checked := useCurDate;
+        if fEditingMode = emNewFormSel then
+        begin
+          eCategory.KeyValue := FieldByName('category').Value;
+          eCode.Text := FieldByName('task_code').AsString;
+          eTask.Text := FieldByName('task_description').AsString;
+          eComment.Text := FieldByName('comment').AsString;
+        end
+        else
+        begin
+          eCode.Text := '';
+          eTask.Text := '';
+          eComment.Text := '';
+        end;
+        eFrom.Text := '';
+        eTo.Text := '';
+      end;//emNew, emNewFormSel
+      emEdit: begin
+        Caption := 'Editing';
+        cbUseCurDate.Enabled := false;
+        cbUseCurDate.Checked := false;
+        eDate.Date := StrToDate( FieldByName('date').AsString, dbDateFormatStr, dbDateSeparator);
+        eFrom.Text := auxiliary.minutesVariantToString(FieldByName('time_from').Value);
+        eTo.Text := auxiliary.minutesVariantToString(FieldByName('time_to').Value);
         eCategory.KeyValue := FieldByName('category').Value;
         eCode.Text := FieldByName('task_code').AsString;
         eTask.Text := FieldByName('task_description').AsString;
         eComment.Text := FieldByName('comment').AsString;
-      end
-      else
-      begin
-        eCode.Text := '';
-        eTask.Text := '';
-        eComment.Text := '';
-      end;
-      eFrom.Text := '';
-      eTo.Text := '';
-      end;
-    emEdit: begin
-      Caption := 'Editing';
-      eDate.Date := StrToDate( FieldByName('date').AsString, dbDateFormatStr, dbDateSeparator);
-      eFrom.Text := auxiliary.minutesVariantToString(FieldByName('time_from').Value);
-      eTo.Text := auxiliary.minutesVariantToString(FieldByName('time_to').Value);
-      eCategory.KeyValue := FieldByName('category').Value;
-      eCode.Text := FieldByName('task_code').AsString;
-      eTask.Text := FieldByName('task_description').AsString;
-      eComment.Text := FieldByName('comment').AsString;
-      end;
-    end;
-  end;
+      end;//emEdit
+    end;//case fEditingMode of
+  end;//with dmMain.sqlTimesheet do
+  updateAvailableEDate;
 end;
 
 procedure TeditingForm.eCategoryChange(Sender: TObject);
@@ -166,6 +177,13 @@ begin
   end;
 end;
 
+procedure TeditingForm.cbUseCurDateChange(Sender: TObject);
+begin
+  if cbUseCurDate.Enabled then
+    useCurDate := cbUseCurDate.Checked;
+  updateAvailableEDate;
+end;
+
 procedure TeditingForm.eFromEditingDone(Sender: TObject);
 begin
   validate_time(eFrom);
@@ -208,7 +226,7 @@ begin
         with dmMain.sqlTimeCrosscup do
         begin
           Close;
-          ParamByName('date').Value := FormatDateTime(dbDateFormatStr,eDate.Date);
+          ParamByName('date').Value := FormatDateTime(dbDateFormatStr,getDate);
           ParamByName('time_from').Value := auxiliary.stringToMinutesVariant(eFrom.Text);
           ParamByName('time_to').Value := auxiliary.stringToMinutesVariant(eTo.Text);
           if fEditingMode <> emEdit then
@@ -220,7 +238,7 @@ begin
           if not Eof then
           begin
             ShowMessage('There are time crosscups on date ' +
-                DateToStr(eDate.Date) + '!' + #13#10 +
+                DateToStr(getDate) + '!' + #13#10 +
                 dmMain.makeMsgBodyForTimeCrosscup
               );
             Result := false;
@@ -231,11 +249,18 @@ begin
   end;
 end;
 
+function TeditingForm.getDate(): TDateTime;
+begin
+  Result := Now;
+  if not cbUseCurDate.Checked then
+    Result := eDate.Date;
+end;
+
 procedure TeditingForm.fill_query_params(query: TSQLQuery);
 begin
   with query do
   begin
-    ParamByName('date').Value := FormatDateTime(dbDateFormatStr,eDate.Date);
+    ParamByName('date').Value := FormatDateTime(dbDateFormatStr,getDate);
     ParamByName('time_from').Value := auxiliary.stringToMinutesVariant(eFrom.Text);
     ParamByName('time_to').Value := auxiliary.stringToMinutesVariant(eTo.Text);
     ParamByName('category').Value := eCategory.KeyValue;
@@ -243,6 +268,11 @@ begin
     ParamByName('task_description').Value := eTask.Text;
     ParamByName('comment').Value := eComment.Text;
   end;
+end;
+
+procedure TeditingForm.updateAvailableEDate();
+begin
+  eDate.Enabled := not cbUseCurDate.Checked;
 end;
 
 end.
