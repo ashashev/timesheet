@@ -160,7 +160,7 @@ begin
     dmMain.makeMsgBodyForCurRow();
 
   if MessageDlg(
-      'Confirm',
+      'Deleting Confirm',
       confirm_msg,
       mtConfirmation,
       [mbYes, mbCancel],
@@ -193,6 +193,7 @@ end;
 
 procedure TdmMain.sqlTimesheetAfterOpen(DataSet: TDataSet);
 begin
+  sqlTimesheet.Last;
   mainForm.updateTotalElapsed;
   mainForm.updateSelectElapsed;
 end;

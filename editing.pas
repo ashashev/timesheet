@@ -153,7 +153,7 @@ begin
       begin
         confirmMsg := 'Are you sure you want to change record?' + #13#10 +
           'It was:' + #13#10 + dmMain.makeMsgBodyForCurRow;
-        if MessageDlg('Confirm', confirmMsg,
+        if MessageDlg('Changing Confirm', confirmMsg,
            mtConfirmation,[mbYes,mbCancel],0,mbCancel) <> mrYes then
         begin
           ModalResult := 0;
