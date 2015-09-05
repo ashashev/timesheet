@@ -66,9 +66,10 @@ var
 begin
   Result := clNone;
   data := mainForm.grid.DataSource.DataSet;
-  if StrToDate(data.FieldByName('date').AsString,
-               dm.dbDateFormatStr,
-               dm.dbDateSeparator) < mainForm.curDate.Date then
+  if (not data.FieldByName('date').IsNull)
+     and (StrToDate(data.FieldByName('date').AsString,
+                    dm.dbDateFormatStr,
+                    dm.dbDateSeparator) < mainForm.curDate.Date) then
   begin
     Result := clSilver;
   end

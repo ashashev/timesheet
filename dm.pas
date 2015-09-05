@@ -102,8 +102,13 @@ var
   curDate: TDateTime;
 begin
   try
-    curDate := StrToDate(sqlTimesheetdate.AsString,dbDateFormatStr,dbDateSeparator);
-    aText := DateToStr(curDate);
+    aText := '';
+    if (not sqlTimesheetdate.IsNull)
+       and (sqlTimesheetdate.AsString <> '') then
+    begin
+      curDate := StrToDate(sqlTimesheetdate.AsString,dbDateFormatStr,dbDateSeparator);
+      aText := DateToStr(curDate);
+    end;
   except
     aText := '';
   end;
