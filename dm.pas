@@ -58,22 +58,22 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure sqlCategoriesnameGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
-    procedure sqlTimesheetAfterOpen(DataSet: TDataSet);
+      {%H-}DisplayText: Boolean);
+    procedure sqlTimesheetAfterOpen({%H-}DataSet: TDataSet);
     procedure sqlTimesheetdateGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
     procedure sqlTimesheetTaskGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
     procedure sqlTimesheetTimeGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
     procedure sqlTimesheetTimeFromGetText(Sender: TField;
-      var aText: string; DisplayText: Boolean);
+      var aText: string; {%H-}DisplayText: Boolean);
     procedure sqlTimesheetTimeToGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
     procedure sqlWeekReportmonthGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
     procedure sqlWeekReporttimeGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
+      {%H-}DisplayText: Boolean);
   private
     { private declarations }
     cfg: TConfig;
@@ -100,7 +100,6 @@ procedure TdmMain.sqlTimesheetdateGetText(Sender: TField; var aText: string;
     DisplayText: Boolean);
 var
   curDate: TDateTime;
-  strDate: String;
 begin
   try
     curDate := StrToDate(sqlTimesheetdate.AsString,dbDateFormatStr,dbDateSeparator);

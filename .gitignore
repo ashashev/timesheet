@@ -8,3 +8,5 @@ timesheet.lps
 timesheet.dbg
 timesheet.ini
 *.db
+*.dll
+

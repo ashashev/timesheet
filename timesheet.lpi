@@ -52,9 +52,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release">
@@ -84,9 +81,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
     </BuildModes>
@@ -117,7 +111,6 @@
       <Unit0>
         <Filename Value="timesheet.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="timesheet"/>
       </Unit0>
       <Unit1>
         <Filename Value="timesheet_main.pas"/>
@@ -125,7 +118,6 @@
         <ComponentName Value="mainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="timesheet_main"/>
       </Unit1>
       <Unit2>
         <Filename Value="dm.pas"/>
@@ -133,12 +125,10 @@
         <ComponentName Value="dmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="dm"/>
       </Unit2>
       <Unit3>
         <Filename Value="auxiliary.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="auxiliary"/>
       </Unit3>
       <Unit4>
         <Filename Value="editing.pas"/>
@@ -146,7 +136,6 @@
         <ComponentName Value="editingForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="editing"/>
       </Unit4>
       <Unit5>
         <Filename Value="weekreportu.pas"/>
@@ -154,12 +143,10 @@
         <ComponentName Value="weekReport"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="weekreportu"/>
       </Unit5>
       <Unit6>
         <Filename Value="config.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="config"/>
       </Unit6>
     </Units>
   </ProjectOptions>
@@ -179,9 +166,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

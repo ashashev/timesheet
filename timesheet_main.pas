@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqlite3conn, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DBGrids, ComCtrls, StdCtrls, ActnList, Calendar, EditBtn, dm, db,
-  editing;
+  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db;
 
 type
 
@@ -31,8 +30,8 @@ type
     procedure curDateEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure gridCellClick(Column: TColumn);
-    procedure gridKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure gridCellClick({%H-}Column: TColumn);
+    procedure gridKeyUp(Sender: TObject; var {%H-}Key: Word; {%H-}Shift: TShiftState);
   private
     { private declarations }
     notCallUpdateDate: Boolean;
@@ -100,7 +99,6 @@ end;
 procedure TmainForm.updateDate;
 var
   curday: Integer;
-  newDate: TDateTime;
 begin
   Assert(not notCallUpdateDate, 'Flag notCallUpdateDate was set.');
 
