@@ -106,14 +106,14 @@ object mainForm: TmainForm
         Height = 32
         Hint = 'Select a week (The first day of selected week is displayed)'
         Top = 0
-        Width = 120
+        Width = 154
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         OKCaption = 'OK'
         CancelCaption = 'Cancel'
         DefaultToday = True
         DateOrder = doNone
         ButtonWidth = 32
-        Align = alLeft
+        Align = alClient
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000000000FC0000

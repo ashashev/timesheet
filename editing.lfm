@@ -39,14 +39,14 @@ object editingForm: TeditingForm
         Left = 0
         Height = 35
         Top = 0
-        Width = 112
+        Width = 150
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         OKCaption = 'OK'
         CancelCaption = 'Cancel'
         DefaultToday = True
         DateOrder = doNone
         ButtonWidth = 35
-        Align = alLeft
+        Align = alClient
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000000000FC0000
@@ -180,19 +180,19 @@ object editingForm: TeditingForm
   end
   object Panel3: TPanel
     Left = 10
-    Height = 35
+    Height = 30
     Top = 40
     Width = 540
     Align = alTop
     BorderSpacing.Left = 10
     BorderSpacing.Right = 10
     BevelOuter = bvNone
-    ClientHeight = 35
+    ClientHeight = 30
     ClientWidth = 540
     TabOrder = 1
     object Label1: TLabel
       Left = 0
-      Height = 30
+      Height = 25
       Top = 5
       Width = 70
       Align = alLeft
@@ -203,7 +203,7 @@ object editingForm: TeditingForm
     end
     object eCategory: TDBLookupComboBox
       Left = 70
-      Height = 35
+      Height = 30
       Top = 0
       Width = 202
       Align = alLeft
@@ -217,7 +217,7 @@ object editingForm: TeditingForm
     end
     object eTo: TMaskEdit
       Left = 483
-      Height = 35
+      Height = 30
       Top = 0
       Width = 57
       Align = alRight
@@ -231,7 +231,7 @@ object editingForm: TeditingForm
     end
     object Label6: TLabel
       Left = 462
-      Height = 30
+      Height = 25
       Top = 5
       Width = 21
       Align = alRight
@@ -241,7 +241,7 @@ object editingForm: TeditingForm
     end
     object eFrom: TMaskEdit
       Left = 406
-      Height = 35
+      Height = 30
       Top = 0
       Width = 56
       Align = alRight
@@ -255,7 +255,7 @@ object editingForm: TeditingForm
     end
     object Label5: TLabel
       Left = 373
-      Height = 30
+      Height = 25
       Top = 5
       Width = 33
       Align = alRight
@@ -265,7 +265,7 @@ object editingForm: TeditingForm
     end
     object Label7: TLabel
       Left = 323
-      Height = 30
+      Height = 25
       Top = 5
       Width = 50
       Align = alRight
@@ -278,7 +278,7 @@ object editingForm: TeditingForm
   object Panel4: TPanel
     Left = 10
     Height = 30
-    Top = 75
+    Top = 70
     Width = 540
     Align = alTop
     BorderSpacing.Left = 10
@@ -311,7 +311,7 @@ object editingForm: TeditingForm
   object Panel5: TPanel
     Left = 10
     Height = 30
-    Top = 105
+    Top = 100
     Width = 540
     Align = alTop
     BorderSpacing.Left = 10
@@ -344,7 +344,7 @@ object editingForm: TeditingForm
   object Panel6: TPanel
     Left = 10
     Height = 30
-    Top = 135
+    Top = 130
     Width = 540
     Align = alTop
     BorderSpacing.Left = 10
