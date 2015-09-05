@@ -1,17 +1,18 @@
 object mainForm: TmainForm
   Left = 341
   Height = 451
-  Top = 137
+  Top = 153
   Width = 830
   Caption = 'mainForm'
-  ClientHeight = 451
+  ClientHeight = 426
   ClientWidth = 830
+  Menu = mainMenu
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.4.2.0'
   object grid: TDBGrid
     Left = 0
-    Height = 393
+    Height = 368
     Top = 35
     Width = 830
     Align = alClient
@@ -29,7 +30,7 @@ object mainForm: TmainForm
   object status: TStatusBar
     Left = 0
     Height = 23
-    Top = 428
+    Top = 403
     Width = 830
     Panels = <    
       item
@@ -64,6 +65,8 @@ object mainForm: TmainForm
     ButtonWidth = 32
     Caption = 'toolBar'
     Images = dmMain.images
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
     object toolButton1: TToolButton
       Left = 1
@@ -101,6 +104,7 @@ object mainForm: TmainForm
       object curDate: TDateEdit
         Left = 0
         Height = 32
+        Hint = 'Select a week (The first day of selected week is displayed)'
         Top = 0
         Width = 120
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
@@ -216,5 +220,38 @@ object mainForm: TmainForm
     DataSet = dmMain.sqlTimesheet
     left = 48
     top = 208
+  end
+  object mainMenu: TMainMenu
+    left = 238
+    top = 217
+    object miFile: TMenuItem
+      Caption = 'File'
+      object miQuit: TMenuItem
+        Caption = '&Quit'
+        ShortCut = 32849
+        OnClick = miQuitClick
+      end
+    end
+    object meEdit: TMenuItem
+      Caption = 'Edit'
+      object miNew: TMenuItem
+        Action = dmMain.actNew
+      end
+      object miCopySelectedRecord: TMenuItem
+        Action = dmMain.actNewFromSel
+      end
+      object miEdit: TMenuItem
+        Action = dmMain.actEdit
+      end
+      object miDelete: TMenuItem
+        Action = dmMain.actDelete
+      end
+    end
+    object miReports: TMenuItem
+      Caption = 'Reports'
+      object miWeekReport: TMenuItem
+        Action = dmMain.actShowWeekReport
+      end
+    end
   end
 end

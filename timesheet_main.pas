@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, sqlite3conn, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db, Grids;
+  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db, Grids, Menus;
 
 type
 
@@ -16,6 +16,16 @@ type
     curDate: TDateEdit;
     dsTimesheet: TDataSource;
     grid: TDBGrid;
+    mainMenu: TMainMenu;
+    meEdit: TMenuItem;
+    miWeekReport: TMenuItem;
+    miReports: TMenuItem;
+    miDelete: TMenuItem;
+    miCopySelectedRecord: TMenuItem;
+    miEdit: TMenuItem;
+    miNew: TMenuItem;
+    miQuit: TMenuItem;
+    miFile: TMenuItem;
     panel1: TPanel;
     status: TStatusBar;
     toolButton1: TToolButton;
@@ -34,6 +44,7 @@ type
     procedure gridDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure gridKeyUp(Sender: TObject; var {%H-}Key: Word; {%H-}Shift: TShiftState);
+    procedure miQuitClick(Sender: TObject);
   private
     { private declarations }
     notCallUpdateDate: Boolean;
@@ -142,6 +153,11 @@ procedure TmainForm.gridKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   updateSelectElapsed;
+end;
+
+procedure TmainForm.miQuitClick(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TmainForm.updateDate;

@@ -480,26 +480,35 @@ object dmMain: TdmMain
     top = 136
     object actNew: TAction
       Caption = 'New'
+      Hint = 'Add new record'
       ImageIndex = 0
       OnExecute = actNewExecute
+      ShortCut = 32846
     end
     object actEdit: TAction
       Caption = 'Edit'
+      Hint = 'Edit elected record'
       ImageIndex = 1
       OnExecute = actEditExecute
+      ShortCut = 32837
     end
     object actDelete: TAction
       Caption = 'Delete'
+      Hint = 'Delete selected record'
       ImageIndex = 2
       OnExecute = actDeleteExecute
+      ShortCut = 32836
     end
     object actNewFromSel: TAction
-      Caption = 'act_new_from_sel'
+      Caption = 'Copy Selected Record'
+      Hint = 'Copy selected record to new record'
       ImageIndex = 3
       OnExecute = actNewFromSelExecute
+      ShortCut = 32835
     end
     object actShowWeekReport: TAction
-      Caption = 'actShowWeekReport'
+      Caption = 'Week Report'
+      Hint = 'Show report for selected week'
       ImageIndex = 4
       OnExecute = actShowWeekReportExecute
     end
