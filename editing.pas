@@ -5,8 +5,9 @@ unit editing;
 interface
 
 uses
-  Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
-  StdCtrls, ExtCtrls, DbCtrls, Buttons, maskedit, dm, sqldb;
+  Classes, SysUtils, db, FileUtil, DateTimePicker, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, ExtCtrls, DbCtrls, Buttons, maskedit, ComCtrls,
+  dm, sqldb;
 
 type
 
@@ -18,7 +19,7 @@ type
     btnOk: TBitBtn;
     btnCancel: TBitBtn;
     cbUseCurDate: TCheckBox;
-    eDate: TDateEdit;
+    eDate: TDateTimePicker;
     dsCategories: TDataSource;
     eCategory: TDBLookupComboBox;
     eCode: TEdit;
@@ -40,6 +41,9 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
+    Panel8: TPanel;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
     procedure btnOkClick(Sender: TObject);
     procedure cbUseCurDateChange(Sender: TObject);
     procedure eCategoryChange(Sender: TObject);
@@ -47,6 +51,8 @@ type
     procedure eToEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure ToolBar1Click(Sender: TObject);
+    procedure ToolButton1Click(Sender: TObject);
   private
     { private declarations }
     fEditingMode: EditingMode;
@@ -67,7 +73,7 @@ var
 
 implementation
 
-uses auxiliary;
+uses auxiliary, popupcalendar;
 
 {$R *.lfm}
 
@@ -76,7 +82,6 @@ uses auxiliary;
 procedure TeditingForm.FormCreate(Sender: TObject);
 begin
   fEditingMode := emNew;
-  eDate.Button.Flat := true;
   eDate.Date := Now;
   useCurDate := true;
 end;
@@ -128,6 +133,16 @@ begin
     end;//case fEditingMode of
   end;//with dmMain.sqlTimesheet do
   updateAvailableEDate;
+end;
+
+procedure TeditingForm.ToolBar1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TeditingForm.ToolButton1Click(Sender: TObject);
+begin
+  PopupCalendarForm.initialize(eDate);
 end;
 
 procedure TeditingForm.eCategoryChange(Sender: TObject);

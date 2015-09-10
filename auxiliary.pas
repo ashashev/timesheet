@@ -19,6 +19,8 @@ function stringToMinutes( strTime: String ): Longint;
 function stringToMinutesVariant( strTime: String ): Variant;
 function minutesVariantToString( minutes: Variant; strNull: String = '' ): String;
 function validateTimeString( strTime: String ): Boolean;
+function firstDayOfWeek(date: TDateTime): TDateTime;
+function lastDayOfWeek(date: TDateTime): TDateTime;
 
 implementation
   const minPerHour = 60;
@@ -81,6 +83,22 @@ begin
     if (hours > 24) or (minutes > 59) or ((hours = 24) and (minutes <> 0)) then
       Result := false;
   end;
+end;
+
+function firstDayOfWeek(date: TDateTime): TDateTime;
+var
+  curDayOfWeek:Integer;
+begin
+  curDayOfWeek := DayOfWeek(date);
+  if curDayOfWeek = sunday then
+    Result := date - (daysPerWeek - 1)
+  else
+    Result := date - (curDayOfWeek - monday);
+end;
+
+function lastDayOfWeek(date: TDateTime): TDateTime;
+begin
+  Result := firstDayOfWeek(date) + (daysPerWeek - 1);
 end;
 
 end.

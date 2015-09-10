@@ -5,15 +5,16 @@ unit timesheet_main;
 interface
 
 uses
-  Classes, SysUtils, sqlite3conn, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, DBGrids, ComCtrls, ActnList, EditBtn, dm, db, Grids, Menus;
+  Classes, SysUtils, sqlite3conn, FileUtil, DateTimePicker, Forms, Controls,
+  Graphics, Dialogs, ExtCtrls, DBGrids, ComCtrls, ActnList, dm, db, Grids,
+  Menus, Buttons;
 
 type
 
   { TmainForm }
 
   TmainForm = class(TForm)
-    curDate: TDateEdit;
+    curDate: TDateTimePicker;
     dsTimesheet: TDataSource;
     grid: TDBGrid;
     mainMenu: TMainMenu;
@@ -36,6 +37,7 @@ type
     toolBar: TToolBar;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
     procedure curDateChange(Sender: TObject);
     procedure curDateEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -45,6 +47,7 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure gridKeyUp(Sender: TObject; var {%H-}Key: Word; {%H-}Shift: TShiftState);
     procedure miQuitClick(Sender: TObject);
+    procedure ToolButton8Click(Sender: TObject);
   private
     { private declarations }
     notCallUpdateDate: Boolean;
@@ -60,7 +63,7 @@ var
 
 implementation
 
-uses auxiliary, dateutils;
+uses auxiliary, dateutils, popupcalendar;
 
 const
   panelWeek = 1;
@@ -121,7 +124,6 @@ end;
 procedure TmainForm.FormCreate(Sender: TObject);
 begin
   Caption := 'Timesheet';
-  curDate.Button.Flat := True;
   notCallUpdateDate := True;
   curDate.Date := Now;
 end;
@@ -160,22 +162,19 @@ begin
   Application.Terminate;
 end;
 
+procedure TmainForm.ToolButton8Click(Sender: TObject);
+begin
+  PopupCalendarForm.initialize(curDate);
+end;
+
 procedure TmainForm.updateDate;
-var
-  curday: Integer;
 begin
   Assert(not notCallUpdateDate, 'Flag notCallUpdateDate was set.');
 
   notCallUpdateDate := True;
   with curDate do
   begin
-    curday := DayOfWeek(Date);
-
-    if curday = sunday then
-      Date := Date - (daysPerWeek - 1)
-    else
-      Date := Date - (curday - monday);
-
+    Date := firstDayOfWeek(Date);
     dmMain.showTimesheetOnWeek(Date);
     status.Panels.Items[panelWeek].Text := IntToStr(WeekOf(Date));
   end;

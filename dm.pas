@@ -25,6 +25,7 @@ type
     actNew: TAction;
     dbCon: TSQLite3Connection;
     images: TImageList;
+    sqlDatesWithRecords: TSQLQuery;
     sqlWeekReport: TSQLQuery;
     sqlTimeCrosscup: TSQLQuery;
     sqlDelete: TSQLQuery;

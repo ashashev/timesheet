@@ -1,0 +1,40 @@
+object PopupCalendar: TPopupCalendar
+  Left = 361
+  Height = 222
+  Top = 178
+  Width = 290
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'PopupCalendar'
+  ClientHeight = 222
+  ClientWidth = 290
+  OnDeactivate = FormDeactivate
+  OnHide = FormHide
+  LCLVersion = '1.4.2.0'
+  object calendar: TOvcCalendar
+    Left = 0
+    Height = 222
+    Top = 0
+    Width = 290
+    Align = alClient
+    BorderStyle = bsSingle
+    Colors.ActiveDay = clRed
+    Colors.ColorScheme = cscalCustom
+    Colors.DayNames = clMaroon
+    Colors.Days = clBlack
+    Colors.InactiveDays = clGray
+    Colors.MonthAndYear = clBlue
+    Colors.Weekend = clRed
+    Color = clNone
+    DayNameWidth = 2
+    Font.Height = -11
+    Font.Name = 'Arial'
+    Options = [cdoShortNames, cdoShowYear, cdoShowInactive, cdoShowRevert, cdoShowToday, cdoShowNavBtns]
+    ParentFont = False
+    TabOrder = 0
+    WeekStarts = dtMonday
+    OnChange = calendarChange
+    OnDblClick = calendarDblClick
+    OnDrawItem = calendarDrawItem
+  end
+end
