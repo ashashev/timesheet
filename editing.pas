@@ -46,12 +46,10 @@ type
     ToolButton1: TToolButton;
     procedure btnOkClick(Sender: TObject);
     procedure cbUseCurDateChange(Sender: TObject);
-    procedure eCategoryChange(Sender: TObject);
     procedure eFromEditingDone(Sender: TObject);
     procedure eToEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure ToolBar1Click(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
   private
     { private declarations }
@@ -63,6 +61,7 @@ type
     function getDate(): TDateTime;
     procedure fill_query_params(query: TSQLQuery);
     procedure updateAvailableEDate;
+    procedure selectStartedFocus;
   public
     { public declarations }
     property editingMode: EditingMode read fEditingMode write fEditingMode;
@@ -133,21 +132,12 @@ begin
     end;//case fEditingMode of
   end;//with dmMain.sqlTimesheet do
   updateAvailableEDate;
-end;
-
-procedure TeditingForm.ToolBar1Click(Sender: TObject);
-begin
-
+  selectStartedFocus;
 end;
 
 procedure TeditingForm.ToolButton1Click(Sender: TObject);
 begin
   PopupCalendarForm.initialize(eDate);
-end;
-
-procedure TeditingForm.eCategoryChange(Sender: TObject);
-begin
-
 end;
 
 procedure TeditingForm.btnOkClick(Sender: TObject);
@@ -288,6 +278,25 @@ end;
 procedure TeditingForm.updateAvailableEDate();
 begin
   eDate.Enabled := not cbUseCurDate.Checked;
+end;
+
+procedure TeditingForm.selectStartedFocus;
+begin
+  if cbUseCurDate.Checked then
+  begin
+    case fEditingMode of
+      emNew: begin
+        eCategory.SetFocus;
+      end;
+      emNewFormSel: begin
+        eFrom.SetFocus;
+      end;
+    end;
+  end
+  else
+  begin
+    eDate.SetFocus;
+  end;
 end;
 
 end.

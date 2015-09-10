@@ -26,21 +26,21 @@ object editingForm: TeditingForm
     ClientWidth = 540
     TabOrder = 0
     object Panel8: TPanel
-      Left = 283
+      Left = 266
       Height = 32
       Top = 0
-      Width = 257
+      Width = 274
       Align = alRight
       AutoSize = True
       BevelOuter = bvNone
       Caption = 'Panel8'
       ClientHeight = 32
-      ClientWidth = 257
+      ClientWidth = 274
       TabOrder = 0
       object ToolBar1: TToolBar
         Left = 0
         Top = 0
-        Width = 257
+        Width = 274
         Align = alClient
         ButtonHeight = 32
         ButtonWidth = 32
@@ -50,12 +50,11 @@ object editingForm: TeditingForm
         EdgeOuter = esNone
         Images = dmMain.images
         TabOrder = 0
-        OnClick = ToolBar1Click
         object cbUseCurDate: TCheckBox
           Left = 1
           Height = 32
           Top = 0
-          Width = 109
+          Width = 126
           Align = alLeft
           BorderSpacing.Right = 5
           BorderSpacing.CellAlignVertical = ccaCenter
@@ -64,7 +63,7 @@ object editingForm: TeditingForm
           TabOrder = 0
         end
         object Panel7: TPanel
-          Left = 115
+          Left = 132
           Height = 32
           Top = 0
           Width = 110
@@ -104,7 +103,7 @@ object editingForm: TeditingForm
           end
         end
         object ToolButton1: TToolButton
-          Left = 225
+          Left = 242
           Top = 0
           Caption = 'ToolButton1'
           ImageIndex = 5
@@ -154,7 +153,7 @@ object editingForm: TeditingForm
   end
   object Panel3: TPanel
     Left = 10
-    Height = 23
+    Height = 29
     Top = 42
     Width = 540
     Align = alTop
@@ -163,12 +162,12 @@ object editingForm: TeditingForm
     BorderSpacing.Top = 5
     BorderSpacing.Right = 10
     BevelOuter = bvNone
-    ClientHeight = 23
+    ClientHeight = 29
     ClientWidth = 540
     TabOrder = 1
     object Label1: TLabel
       Left = 0
-      Height = 18
+      Height = 24
       Top = 5
       Width = 70
       Align = alLeft
@@ -180,7 +179,7 @@ object editingForm: TeditingForm
     end
     object eCategory: TDBLookupComboBox
       Left = 70
-      Height = 23
+      Height = 29
       Top = 0
       Width = 202
       Align = alLeft
@@ -190,12 +189,11 @@ object editingForm: TeditingForm
       ListFieldIndex = 0
       ListSource = dsCategories
       LookupCache = False
-      OnChange = eCategoryChange
       TabOrder = 0
     end
     object eTo: TMaskEdit
       Left = 483
-      Height = 23
+      Height = 29
       Top = 0
       Width = 57
       Align = alRight
@@ -209,10 +207,10 @@ object editingForm: TeditingForm
       SpaceChar = '_'
     end
     object Label6: TLabel
-      Left = 466
-      Height = 18
+      Left = 462
+      Height = 24
       Top = 5
-      Width = 17
+      Width = 21
       Align = alRight
       BorderSpacing.Top = 5
       BorderSpacing.CellAlignVertical = ccaCenter
@@ -220,8 +218,8 @@ object editingForm: TeditingForm
       ParentColor = False
     end
     object eFrom: TMaskEdit
-      Left = 410
-      Height = 23
+      Left = 406
+      Height = 29
       Top = 0
       Width = 56
       Align = alRight
@@ -235,10 +233,10 @@ object editingForm: TeditingForm
       SpaceChar = '_'
     end
     object Label5: TLabel
-      Left = 381
-      Height = 18
+      Left = 373
+      Height = 24
       Top = 5
-      Width = 29
+      Width = 33
       Align = alRight
       BorderSpacing.Top = 5
       BorderSpacing.CellAlignVertical = ccaCenter
@@ -246,8 +244,8 @@ object editingForm: TeditingForm
       ParentColor = False
     end
     object Label7: TLabel
-      Left = 331
-      Height = 18
+      Left = 323
+      Height = 24
       Top = 5
       Width = 50
       Align = alRight
@@ -260,20 +258,21 @@ object editingForm: TeditingForm
   end
   object Panel4: TPanel
     Left = 10
-    Height = 30
-    Top = 70
+    Height = 29
+    Top = 76
     Width = 540
     Align = alTop
+    AutoSize = True
     BorderSpacing.Left = 10
     BorderSpacing.Top = 5
     BorderSpacing.Right = 10
     BevelOuter = bvNone
-    ClientHeight = 30
+    ClientHeight = 29
     ClientWidth = 540
     TabOrder = 2
     object Label2: TLabel
       Left = 0
-      Height = 25
+      Height = 24
       Top = 5
       Width = 70
       Align = alLeft
@@ -284,7 +283,7 @@ object editingForm: TeditingForm
     end
     object eCode: TEdit
       Left = 70
-      Height = 30
+      Height = 29
       Top = 0
       Width = 470
       Align = alClient
@@ -294,20 +293,21 @@ object editingForm: TeditingForm
   end
   object Panel5: TPanel
     Left = 10
-    Height = 30
-    Top = 105
+    Height = 29
+    Top = 110
     Width = 540
     Align = alTop
+    AutoSize = True
     BorderSpacing.Left = 10
     BorderSpacing.Top = 5
     BorderSpacing.Right = 10
     BevelOuter = bvNone
-    ClientHeight = 30
+    ClientHeight = 29
     ClientWidth = 540
     TabOrder = 3
     object Label3: TLabel
       Left = 0
-      Height = 25
+      Height = 24
       Top = 5
       Width = 70
       Align = alLeft
@@ -318,7 +318,7 @@ object editingForm: TeditingForm
     end
     object eTask: TEdit
       Left = 70
-      Height = 30
+      Height = 29
       Top = 0
       Width = 470
       Align = alClient
@@ -328,20 +328,21 @@ object editingForm: TeditingForm
   end
   object Panel6: TPanel
     Left = 10
-    Height = 30
-    Top = 140
+    Height = 29
+    Top = 144
     Width = 540
     Align = alTop
+    AutoSize = True
     BorderSpacing.Left = 10
     BorderSpacing.Top = 5
     BorderSpacing.Right = 10
     BevelOuter = bvNone
-    ClientHeight = 30
+    ClientHeight = 29
     ClientWidth = 540
     TabOrder = 4
     object Label4: TLabel
       Left = 0
-      Height = 25
+      Height = 24
       Top = 5
       Width = 70
       Align = alLeft
@@ -352,7 +353,7 @@ object editingForm: TeditingForm
     end
     object eComment: TEdit
       Left = 70
-      Height = 30
+      Height = 29
       Top = 0
       Width = 470
       Align = alClient
