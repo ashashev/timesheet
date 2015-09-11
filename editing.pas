@@ -295,7 +295,29 @@ begin
   end
   else
   begin
-    eDate.SetFocus;
+    if fEditingMode = emEdit then
+    begin
+      if eDate.DateIsNull then
+        eDate.SetFocus
+      else if eCategory.KeyValue = Null then
+        eCategory.SetFocus
+      else if eFrom.Text = emptyTimeStr then
+        eFrom.SetFocus
+      else if eTo.Text = emptyTimeStr then
+        eTo.SetFocus
+      else if eCode.Text = '' then
+        eCode.SetFocus
+      else if eTask.Text = '' then
+        eTask.SetFocus
+      else if eComment.Text = '' then
+        eComment.SetFocus
+      else
+        eDate.SetFocus;
+    end
+    else
+    begin
+      eDate.SetFocus;
+    end;
   end;
 end;
 
