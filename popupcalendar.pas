@@ -48,7 +48,10 @@ begin
   DecodeDate(curDate, year, month, day);
   sDate := format(fmt,[year, month, 1]);
   first := firstDayOfWeek(StrToDate(sDate, dbDateFormatStr, dbDateSeparator));
-  sDate := format(fmt,[year, month + 1, 1]);
+  if month = 12 then
+    sDate := format(fmt,[year + 1, 1, 1])
+  else
+    sDate := format(fmt,[year, month + 1, 1]);
   last := lastDayOfWeek(StrToDate(sDate, dbDateFormatStr, dbDateSeparator) - 1);
 end;
 

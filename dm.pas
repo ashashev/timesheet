@@ -124,8 +124,8 @@ end;
 procedure TdmMain.DataModuleCreate(Sender: TObject);
 begin
   cfg := TConfig.Create(IniFileName);
-  DateSeparator := '.';
-  ShortDateFormat := 'dd.mm.yyyy';
+  DefaultFormatSettings.DateSeparator := '.';
+  DefaultFormatSettings.ShortDateFormat := 'dd.mm.yyyy';
   dbCon.Close(True);
   dbCon.DatabaseName := cfg.DbPath;
   dbCon.Open;
