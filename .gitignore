@@ -9,4 +9,5 @@ timesheet.dbg
 timesheet.ini
 *.db
 *.dll
+*.bak
 

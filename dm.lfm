@@ -24,31 +24,26 @@ object dmMain: TdmMain
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'date'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'time_from'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'time_to'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'time'
         DataType = ftLargeint
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'task'
@@ -60,31 +55,26 @@ object dmMain: TdmMain
         Name = 'task_code'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'task_description'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'comment'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'category'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'used'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end>
     AfterOpen = sqlTimesheetAfterOpen
     Database = dbCon
@@ -112,6 +102,7 @@ object dmMain: TdmMain
     InsertSQL.Strings = (
       ''
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -147,7 +138,6 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       OnGetText = sqlTimesheetdateGetText
-      BlobType = ftBlob
       Transliterate = False
     end
     object sqlTimesheetTimeFrom: TLongintField
@@ -208,7 +198,6 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
-      BlobType = ftBlob
       Transliterate = False
     end
     object sqlTimesheetTaskDescription: TMemoField
@@ -221,7 +210,6 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
-      BlobType = ftBlob
       Transliterate = False
     end
     object sqlTimesheetComment: TMemoField
@@ -234,7 +222,6 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
-      BlobType = ftBlob
       Transliterate = False
     end
     object sqlTimesheetCategory: TLongintField
@@ -264,6 +251,7 @@ object dmMain: TdmMain
     Active = False
     Action = caNone
     Database = dbCon
+    Options = []
     left = 15
     top = 72
   end
@@ -273,19 +261,16 @@ object dmMain: TdmMain
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'name'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'used'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end>
     Database = dbCon
     Transaction = sqlTran
@@ -294,6 +279,7 @@ object dmMain: TdmMain
       'select * from categories'
       'order by name'
     )
+    Options = []
     Params = <>
     left = 192
     top = 8
@@ -317,7 +303,6 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       OnGetText = sqlCategoriesnameGetText
-      BlobType = ftBlob
       Transliterate = False
     end
     object sqlCategoriesused: TLongintField
@@ -353,12 +338,13 @@ object dmMain: TdmMain
       '  :task_description,'
       '  :comment)'
     )
-    UpdateSQL.Strings = (
-      ''
-    )
     InsertSQL.Strings = (
       ''
     )
+    UpdateSQL.Strings = (
+      ''
+    )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -413,6 +399,7 @@ object dmMain: TdmMain
       '  comment = :comment'
       'where id = :id'
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -465,6 +452,7 @@ object dmMain: TdmMain
       'delete from timesheet'
       'where id = :id'
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -968,6 +956,7 @@ object dmMain: TdmMain
       '  (not( (ts.time_from >= :time_to) or (ts.time_to <= :time_from) )) and'
       '  ifnull(ts.id <> :id, 1 )'
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -1010,7 +999,6 @@ object dmMain: TdmMain
         Name = 'time'
         DataType = ftLargeint
         Precision = -1
-        Size = 0
       end>
     Database = dbCon
     Transaction = sqlTran
@@ -1026,6 +1014,7 @@ object dmMain: TdmMain
       'order by month, task'
       ''
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -1090,6 +1079,7 @@ object dmMain: TdmMain
       'order by ts.date'
       ''
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
