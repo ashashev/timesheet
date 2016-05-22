@@ -53,6 +53,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <ExecuteBefore>
+              <Command Value="python get_tagged_version.py taggedversion.inc"/>
+            </ExecuteBefore>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release">
@@ -114,7 +119,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="8">
+    <Units Count="9">
       <Unit0>
         <Filename Value="timesheet.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -162,6 +167,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="versioninfo.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

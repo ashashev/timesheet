@@ -63,7 +63,7 @@ var
 
 implementation
 
-uses auxiliary, dateutils, popupcalendar;
+uses auxiliary, dateutils, popupcalendar, versioninfo;
 
 const
   panelWeek = 1;
@@ -124,6 +124,7 @@ end;
 procedure TmainForm.FormCreate(Sender: TObject);
 begin
   Caption := 'Timesheet';
+  Caption := Caption + ' (' + Version.Get + ')';
   notCallUpdateDate := True;
   curDate.Date := Now;
 end;

@@ -9,10 +9,10 @@ object mainForm: TmainForm
   Menu = mainMenu
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.4.2.0'
+  LCLVersion = '1.6.0.4'
   object grid: TDBGrid
     Left = 0
-    Height = 368
+    Height = 370
     Top = 35
     Width = 830
     Align = alClient
@@ -29,8 +29,8 @@ object mainForm: TmainForm
   end
   object status: TStatusBar
     Left = 0
-    Height = 23
-    Top = 403
+    Height = 21
+    Top = 405
     Width = 830
     Panels = <    
       item
