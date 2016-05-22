@@ -87,6 +87,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <ExecuteBefore>
+              <Command Value="python get_tagged_version.py taggedversion.inc"/>
+            </ExecuteBefore>
+          </Other>
         </CompilerOptions>
       </Item3>
     </BuildModes>
@@ -189,6 +194,11 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <ExecuteBefore>
+        <Command Value="python get_tagged_version.py taggedversion.inc"/>
+      </ExecuteBefore>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

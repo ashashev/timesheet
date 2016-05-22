@@ -13,6 +13,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title:='Timesheet';
   Application.Initialize;
   try
     if Application.HasOption('version') then
