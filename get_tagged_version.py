@@ -8,19 +8,23 @@ def writeVersion(filename, version):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
+    unknownVersion="0.0.0-#"
     try:
-        p = subprocess.Popen(["git", "tag", "--contains"], stdout=subprocess.PIPE)
+        p = subprocess.Popen(["git", "describe", "--match", "v.*"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        if (p.stdout.eof()):
-            print("ok")
+        stdoutdata, stderrdata = p.communicate()
+
+        writeVersion(filename, unknownVersion)
+
+        if p.returncode == 0:
+            writeVersion(filename, stdoutdata)
         else:
-            print("false")
+            print(stderrdata)
 
-        writeVersion(filename, l)
-
-        for l in p.stdout:
-            writeVersion(filename, l)
-
-    except:
-        writeVersion(filename, "unversioned")
+    except Exception as inst:
+        print("error")
+        print(type(inst))     # the exception instance
+        print(inst.args)      # arguments stored in .args
+        print(inst)           # __str__ allows args to be printed directly
+        writeVersion(filename, unknownVersion)
 

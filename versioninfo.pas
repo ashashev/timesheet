@@ -22,7 +22,7 @@ implementation
 
 function TVersionInfo.Get: String;
 begin
-  Result := 'ver. ' + TaggedVersionStr;
+  Result := TaggedVersionStr;
 end;
 
 initialization
