@@ -43,14 +43,14 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
+    BtnShowCalendar: TToolButton;
     procedure btnOkClick(Sender: TObject);
     procedure cbUseCurDateChange(Sender: TObject);
     procedure eFromEditingDone(Sender: TObject);
     procedure eToEditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure ToolButton1Click(Sender: TObject);
+    procedure BtnShowCalendarClick(Sender: TObject);
   private
     { private declarations }
     fEditingMode: EditingMode;
@@ -135,7 +135,7 @@ begin
   selectStartedFocus;
 end;
 
-procedure TeditingForm.ToolButton1Click(Sender: TObject);
+procedure TeditingForm.BtnShowCalendarClick(Sender: TObject);
 begin
   PopupCalendarForm.initialize(eDate);
 end;
@@ -278,6 +278,7 @@ end;
 procedure TeditingForm.updateAvailableEDate();
 begin
   eDate.Enabled := not cbUseCurDate.Checked;
+  BtnShowCalendar.Enabled := not cbUseCurDate.Checked;
 end;
 
 procedure TeditingForm.selectStartedFocus;
