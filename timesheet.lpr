@@ -18,7 +18,7 @@ begin
   try
     if Application.HasOption('version') then
     begin
-      ShowMessage('Timesheet' + Version.Get);
+      ShowMessage('Timesheet ' + Version.Get);
     end
     else
     begin
