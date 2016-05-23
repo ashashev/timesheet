@@ -58,6 +58,7 @@ type
 
     function validate_time( obj: TMaskEdit ): Boolean;
     function validate_time(): Boolean;
+    function ValidateCrossCup(var ErrorMessage: String): Boolean;
     function getDate(): TDateTime;
     procedure fill_query_params(query: TSQLQuery);
     procedure updateAvailableEDate;
@@ -215,42 +216,77 @@ begin
 end;
 
 function TeditingForm.validate_time: Boolean;
+var
+  ErrorMessage: String;
 begin
-  Result := true;
-  if validate_time(eFrom) and validate_time(eTo) then
+  Result := False;
+
+  if not validate_time(eFrom) then
   begin
-    if (eFrom.Text <> emptyTimeStr) and (eTo.Text <> emptyTimeStr) then
-      if stringToMinutes(eFrom.Text) > stringToMinutes(eTo.Text) then
-      begin
-        ShowMessage('Invalid time!' + #13#10 +
-          'The value "Time To" must be more than the value "Time From"');
-        Result := false;
-      end
-      else
-      begin
-        with dmMain.sqlTimeCrosscup do
-        begin
-          Close;
-          ParamByName('date').Value := FormatDateTime(dbDateFormatStr,getDate);
-          ParamByName('time_from').Value := auxiliary.stringToMinutesVariant(eFrom.Text);
-          ParamByName('time_to').Value := auxiliary.stringToMinutesVariant(eTo.Text);
-          if fEditingMode <> emEdit then
-            ParamByName('id').Value := Null
-          else
-            ParamByName('id').Value := dmMain.sqlTimesheet.FieldByName('id').Value;
-          Open;
-          First;
-          if not Eof then
-          begin
-            ShowMessage('There are time crosscups on date ' +
-                DateToStr(getDate) + '!' + #13#10 +
-                dmMain.makeMsgBodyForTimeCrosscup
-              );
-            Result := false;
-          end;
-          Close;
-        end;
-      end;
+    Result := False;
+    Exit;
+  end;
+
+  if not validate_time(eTo) then
+  begin
+    Result := False;
+    Exit;
+  end;
+
+  if (eFrom.Text = emptyTimeStr) or (eTo.Text = emptyTimeStr) then
+  begin
+    Result := True;
+    Exit;
+  end;
+
+  if stringToMinutes(eFrom.Text) > stringToMinutes(eTo.Text) then
+  begin
+    ShowMessage('Invalid time!' + #13#10 +
+                'The value "Time To" must be more than the value "Time From"');
+    Result := False;
+    Exit;
+  end;
+
+  if not ValidateCrossCup(ErrorMessage) then
+  begin
+    Result := False;
+    ShowMessage(ErrorMessage);
+    Exit;
+  end;
+
+  Result := True;
+end;
+
+function TeditingForm.ValidateCrossCup(var ErrorMessage: String): Boolean;
+begin
+  ErrorMessage := '';
+  Result := False;
+  with dmMain.sqlTimeCrosscup do
+  begin
+    Close;
+    ParamByName('date').Value := FormatDateTime(dbDateFormatStr,getDate);
+    ParamByName('time_from').Value := auxiliary.stringToMinutesVariant(eFrom.Text);
+    ParamByName('time_to').Value := auxiliary.stringToMinutesVariant(eTo.Text);
+
+    if fEditingMode <> emEdit then
+      ParamByName('id').Value := Null
+    else
+      ParamByName('id').Value := dmMain.sqlTimesheet.FieldByName('id').Value;
+
+    Open;
+    First;
+    if not Eof then
+    begin
+      ErrorMessage := 'There are time crosscups on date ' +
+                      DateToStr(getDate) + '!' + #13#10 +
+                      dmMain.makeMsgBodyForTimeCrosscup;
+      Result := false;
+    end
+    else
+    begin
+      Result := true;
+    end;
+    Close;
   end;
 end;
 
