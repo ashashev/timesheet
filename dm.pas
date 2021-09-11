@@ -122,7 +122,14 @@ begin
 end;
 
 procedure TdmMain.DataModuleCreate(Sender: TObject);
+var
+  appDir: String;
 begin
+  appDir := ExtractFileDir(ParamStr(0));
+  if LowerCase(ExtractFileName(appDir)) = 'macos' then
+  begin
+    ChDir(appDir + '/../Resources');
+  end;
   cfg := TConfig.Create(IniFileName);
   DefaultFormatSettings.DateSeparator := '.';
   DefaultFormatSettings.ShortDateFormat := 'dd.mm.yyyy';
