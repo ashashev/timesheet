@@ -1,7 +1,7 @@
 object mainForm: TmainForm
-  Left = 341
+  Left = 284
   Height = 451
-  Top = 153
+  Top = 114
   Width = 830
   Caption = 'mainForm'
   ClientHeight = 426
@@ -9,10 +9,10 @@ object mainForm: TmainForm
   Menu = mainMenu
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '2.0.12.0'
   object grid: TDBGrid
     Left = 0
-    Height = 370
+    Height = 373
     Top = 35
     Width = 830
     Align = alClient
@@ -29,8 +29,8 @@ object mainForm: TmainForm
   end
   object status: TStatusBar
     Left = 0
-    Height = 21
-    Top = 405
+    Height = 18
+    Top = 408
     Width = 830
     Panels = <    
       item
@@ -87,12 +87,11 @@ object mainForm: TmainForm
       Left = 129
       Height = 32
       Top = 2
-      Width = 10
       Caption = 'toolButton4'
       Style = tbsSeparator
     end
     object panel1: TPanel
-      Left = 181
+      Left = 177
       Height = 32
       Top = 2
       Width = 110
@@ -137,20 +136,19 @@ object mainForm: TmainForm
       Action = dmMain.actNewFromSel
     end
     object ToolButton6: TToolButton
-      Left = 139
+      Left = 137
       Top = 2
       Action = dmMain.actShowWeekReport
     end
     object ToolButton7: TToolButton
-      Left = 171
+      Left = 169
       Height = 32
       Top = 2
-      Width = 10
       Caption = 'ToolButton7'
       Style = tbsSeparator
     end
     object ToolButton8: TToolButton
-      Left = 291
+      Left = 287
       Top = 2
       Caption = 'ToolButton8'
       ImageIndex = 5
@@ -159,12 +157,12 @@ object mainForm: TmainForm
   end
   object dsTimesheet: TDataSource
     DataSet = dmMain.sqlTimesheet
-    left = 48
-    top = 208
+    Left = 48
+    Top = 208
   end
   object mainMenu: TMainMenu
-    left = 238
-    top = 217
+    Left = 238
+    Top = 217
     object miFile: TMenuItem
       Caption = 'File'
       object miQuit: TMenuItem

@@ -14,9 +14,9 @@ object dmMain: TdmMain
     Transaction = sqlTran
     CharSet = 'utf-8'
     LogEvents = []
-    Options = []
-    left = 15
-    top = 8
+    AlwaysUseBigint = False
+    Left = 15
+    Top = 8
   end
   object sqlTimesheet: TSQLQuery
     FieldDefs = <    
@@ -102,7 +102,6 @@ object dmMain: TdmMain
     InsertSQL.Strings = (
       ''
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -114,8 +113,8 @@ object dmMain: TdmMain
         Name = 'dateto'
         ParamType = ptInput
       end>
-    left = 88
-    top = 8
+    Left = 88
+    Top = 8
     object sqlTimesheetid: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -138,6 +137,7 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       OnGetText = sqlTimesheetdateGetText
+      BlobType = ftMemo
       Transliterate = False
     end
     object sqlTimesheetTimeFrom: TLongintField
@@ -198,6 +198,7 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
+      BlobType = ftMemo
       Transliterate = False
     end
     object sqlTimesheetTaskDescription: TMemoField
@@ -210,6 +211,7 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
+      BlobType = ftMemo
       Transliterate = False
     end
     object sqlTimesheetComment: TMemoField
@@ -222,6 +224,7 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       Visible = False
+      BlobType = ftMemo
       Transliterate = False
     end
     object sqlTimesheetCategory: TLongintField
@@ -251,9 +254,8 @@ object dmMain: TdmMain
     Active = False
     Action = caNone
     Database = dbCon
-    Options = []
-    left = 15
-    top = 72
+    Left = 15
+    Top = 72
   end
   object sqlCategories: TSQLQuery
     FieldDefs = <    
@@ -279,10 +281,9 @@ object dmMain: TdmMain
       'select * from categories'
       'order by name'
     )
-    Options = []
     Params = <>
-    left = 192
-    top = 8
+    Left = 192
+    Top = 8
     object sqlCategoriesid: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -303,6 +304,7 @@ object dmMain: TdmMain
       ReadOnly = False
       Required = False
       OnGetText = sqlCategoriesnameGetText
+      BlobType = ftMemo
       Transliterate = False
     end
     object sqlCategoriesused: TLongintField
@@ -344,7 +346,6 @@ object dmMain: TdmMain
     UpdateSQL.Strings = (
       ''
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -381,8 +382,8 @@ object dmMain: TdmMain
         Name = 'comment'
         ParamType = ptInput
       end>
-    left = 88
-    top = 72
+    Left = 88
+    Top = 72
   end
   object sqlEdit: TSQLQuery
     FieldDefs = <>
@@ -399,7 +400,6 @@ object dmMain: TdmMain
       '  comment = :comment'
       'where id = :id'
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -441,8 +441,8 @@ object dmMain: TdmMain
         Name = 'id'
         ParamType = ptInput
       end>
-    left = 152
-    top = 72
+    Left = 152
+    Top = 72
   end
   object sqlDelete: TSQLQuery
     FieldDefs = <>
@@ -452,20 +452,19 @@ object dmMain: TdmMain
       'delete from timesheet'
       'where id = :id'
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
         Name = 'id'
         ParamType = ptInput
       end>
-    left = 216
-    top = 72
+    Left = 216
+    Top = 72
   end
   object actions: TActionList
     Images = images
-    left = 16
-    top = 136
+    Left = 16
+    Top = 136
     object actNew: TAction
       Caption = 'New'
       Hint = 'Add new record'
@@ -504,8 +503,8 @@ object dmMain: TdmMain
   object images: TImageList
     Height = 24
     Width = 24
-    left = 80
-    top = 136
+    Left = 80
+    Top = 136
     Bitmap = {
       4C69060000001800000018000000FFFFFF00FFFFFF00FFFFFF00000000400000
       00FF000000FF00000040FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -956,7 +955,6 @@ object dmMain: TdmMain
       '  (not( (ts.time_from >= :time_to) or (ts.time_to <= :time_from) )) and'
       '  ifnull(ts.id <> :id, 1 )'
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -978,8 +976,8 @@ object dmMain: TdmMain
         Name = 'id'
         ParamType = ptInput
       end>
-    left = 168
-    top = 136
+    Left = 168
+    Top = 136
   end
   object sqlWeekReport: TSQLQuery
     FieldDefs = <    
@@ -1014,7 +1012,6 @@ object dmMain: TdmMain
       'order by month, task'
       ''
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -1026,8 +1023,8 @@ object dmMain: TdmMain
         Name = 'dateto'
         ParamType = ptInput
       end>
-    left = 280
-    top = 136
+    Left = 280
+    Top = 136
     object sqlWeekReportmonth: TStringField
       DisplayLabel = 'Month'
       DisplayWidth = 5
@@ -1079,7 +1076,6 @@ object dmMain: TdmMain
       'order by ts.date'
       ''
     )
-    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -1091,7 +1087,7 @@ object dmMain: TdmMain
         Name = 'dateto'
         ParamType = ptInput
       end>
-    left = 400
-    top = 136
+    Left = 400
+    Top = 136
   end
 end
